@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using backend.Areas.Communication.Models;
 using backend.Areas.Identity.Models;
 
 namespace backend.Areas.Main.Models;
@@ -27,4 +28,5 @@ public class Lead
     [ForeignKey("CreatedBy")] 
     public User CreatedByUser { get; set; }
     public virtual IEnumerable<Campaign>? Campaigns { get; set; }
+    public virtual IEnumerable<Meeting>? Meetings { get; set; }
 }

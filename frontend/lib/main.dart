@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/screens/dashboard_screen.dart';
-import 'package:frontend/screens/home_screen.dart';
 import 'package:frontend/screens/login_screen.dart';
 import 'package:frontend/screens/register_screen.dart';
 import 'package:toastification/toastification.dart';
+import 'package:window_manager/window_manager.dart';
 
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await windowManager.ensureInitialized();
+  WindowOptions windowOptions = const WindowOptions(
+    center: true,
+    backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+    skipTaskbar: false,
+    titleBarStyle: TitleBarStyle.normal
+  );
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+    await windowManager.maximize();
+  });
   runApp(CRMFrontend());
 }
 
@@ -22,13 +36,13 @@ class CRMFrontend extends StatelessWidget {
         ),
         child: MaterialApp(
           theme: ThemeData.dark(),
-          initialRoute: HomeScreen.id,
+          initialRoute: RegisterScreen.id,
           routes: {
-            HomeScreen.id: (context) => HomeScreen(),
-            LoginScreen.id: (context) => LoginScreen(),
             RegisterScreen.id: (context) => RegisterScreen(),
+            LoginScreen.id: (context) => LoginScreen(),
             DashboardScreen.id: (context) => DashboardScreen(),
           },
+          debugShowCheckedModeBanner: false,
         )
     );
   }

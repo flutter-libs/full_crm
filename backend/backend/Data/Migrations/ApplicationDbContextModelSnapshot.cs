@@ -200,6 +200,61 @@ namespace backend.Data.Migrations
                     b.ToTable("Emails");
                 });
 
+            modelBuilder.Entity("backend.Areas.Communication.Models.Meeting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("OrganizerId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int?>("ContactId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(2000)
+                        .HasColumnType("varchar(2000)");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsOnline")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int?>("LeadId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Location")
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<string>("MeetingLink")
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.HasKey("Id", "OrganizerId");
+
+                    b.HasIndex("ContactId");
+
+                    b.HasIndex("LeadId");
+
+                    b.HasIndex("OrganizerId");
+
+                    b.ToTable("Meetings");
+                });
+
             modelBuilder.Entity("backend.Areas.Communication.Models.Message", b =>
                 {
                     b.Property<int>("Id")
@@ -241,6 +296,27 @@ namespace backend.Data.Migrations
                     b.HasIndex("MessageId");
 
                     b.ToTable("MessageUsers");
+                });
+
+            modelBuilder.Entity("backend.Areas.Communication.Models.UserMeeting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("MeetingId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id", "UserId", "MeetingId");
+
+                    b.HasIndex("MeetingId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserMeetings");
                 });
 
             modelBuilder.Entity("backend.Areas.Identity.Models.Role", b =>
@@ -947,6 +1023,31 @@ namespace backend.Data.Migrations
                     b.Navigation("ToUser");
                 });
 
+            modelBuilder.Entity("backend.Areas.Communication.Models.Meeting", b =>
+                {
+                    b.HasOne("backend.Areas.Main.Models.Contact", "Contact")
+                        .WithMany("Meetings")
+                        .HasForeignKey("ContactId")
+                        .HasPrincipalKey("Id");
+
+                    b.HasOne("backend.Areas.Main.Models.Lead", "Lead")
+                        .WithMany("Meetings")
+                        .HasForeignKey("LeadId")
+                        .HasPrincipalKey("Id");
+
+                    b.HasOne("backend.Areas.Identity.Models.User", "Organizer")
+                        .WithMany("Meetings")
+                        .HasForeignKey("OrganizerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Contact");
+
+                    b.Navigation("Lead");
+
+                    b.Navigation("Organizer");
+                });
+
             modelBuilder.Entity("backend.Areas.Communication.Models.MessageUsers", b =>
                 {
                     b.HasOne("backend.Areas.Identity.Models.User", "From")
@@ -964,6 +1065,26 @@ namespace backend.Data.Migrations
                     b.Navigation("From");
 
                     b.Navigation("Message");
+                });
+
+            modelBuilder.Entity("backend.Areas.Communication.Models.UserMeeting", b =>
+                {
+                    b.HasOne("backend.Areas.Communication.Models.Meeting", "Meeting")
+                        .WithMany("UserMeetings")
+                        .HasForeignKey("MeetingId")
+                        .HasPrincipalKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Areas.Identity.Models.User", "User")
+                        .WithMany("UserMeetings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Meeting");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("backend.Areas.Identity.Models.UserRoles", b =>
@@ -1110,6 +1231,11 @@ namespace backend.Data.Migrations
                     b.Navigation("CreatedByUser");
                 });
 
+            modelBuilder.Entity("backend.Areas.Communication.Models.Meeting", b =>
+                {
+                    b.Navigation("UserMeetings");
+                });
+
             modelBuilder.Entity("backend.Areas.Communication.Models.Message", b =>
                 {
                     b.Navigation("MessageUsers");
@@ -1134,9 +1260,13 @@ namespace backend.Data.Migrations
 
                     b.Navigation("Leads");
 
+                    b.Navigation("Meetings");
+
                     b.Navigation("MessageUsers");
 
                     b.Navigation("Tasks");
+
+                    b.Navigation("UserMeetings");
 
                     b.Navigation("UserRoles");
                 });
@@ -1157,12 +1287,19 @@ namespace backend.Data.Migrations
                 {
                     b.Navigation("Jobs");
 
+                    b.Navigation("Meetings");
+
                     b.Navigation("Tasks");
                 });
 
             modelBuilder.Entity("backend.Areas.Main.Models.Job", b =>
                 {
                     b.Navigation("Tasks");
+                });
+
+            modelBuilder.Entity("backend.Areas.Main.Models.Lead", b =>
+                {
+                    b.Navigation("Meetings");
                 });
 #pragma warning restore 612, 618
         }

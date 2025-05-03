@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
-  static const String id = "dashboard";
+  static const String id = "dashboard_screen";
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
 }

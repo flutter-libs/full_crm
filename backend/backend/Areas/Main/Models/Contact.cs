@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using backend.Areas.Communication.Models;
 using backend.Areas.Identity.Models;
 
 
@@ -65,4 +66,5 @@ public class Contact
     public IEnumerable<Job>? Jobs { get; set; }
     public virtual IEnumerable<Campaign>? Campaigns { get; set; }
     public virtual IEnumerable<Tasks>? Tasks { get; set; }
+    public virtual IEnumerable<Meeting>? Meetings { get; set; }
 }

@@ -25,6 +25,8 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
     public DbSet<Analytic> Analytics { get; set; }
     public DbSet<Message> Messages { get; set; }
     public DbSet<MessageUsers> MessageUsers { get; set; }
+    public DbSet<Meeting> Meetings { get; set; }
+    public DbSet<UserMeeting> UserMeetings { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -60,6 +62,9 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
                 .WithOne(u => u.From)
                 .HasForeignKey(x => x.FromId)
                 .OnDelete(DeleteBehavior.Restrict);
+            entity.HasMany(x => x.UserMeetings)
+                .WithOne(c => c.User)
+                .HasForeignKey(c => c.UserId);
         });
         builder.Entity<Role>(entity => { entity.HasKey(e => e.Id); });
         builder.Entity<UserRoles>(entity =>
@@ -78,6 +83,10 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
             entity.HasOne(x => x.CreatedByUser)
                 .WithMany(x => x.Leads)
                 .HasForeignKey(x => x.CreatedBy);
+            entity.HasMany(x => x.Meetings)
+                .WithOne(x => x.Lead)
+                .HasForeignKey(x => x.LeadId)
+                .HasPrincipalKey(l => l.Id);
         });
         builder.Entity<Contact>(entity =>
         {
@@ -93,6 +102,10 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
                 .WithMany(x => x.Contacts)
                 .HasForeignKey(x => x.CompanyId)
                 .OnDelete(DeleteBehavior.Restrict);
+            entity.HasMany(x => x.Meetings)
+                .WithOne(x => x.Contact)
+                .HasForeignKey(x => x.ContactId)
+                .HasPrincipalKey(c => c.Id);
         });
         builder.Entity<Job>(entity =>
         {
@@ -207,6 +220,27 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
                         j.HasKey("MessageUserId", "ReceiverId");
                         j.ToTable("MessageUserReceivers");
                     });
+        });
+        builder.Entity<Meeting>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.OrganizerId });
+            entity.HasMany(x => x.UserMeetings)
+                .WithOne(m => m.Meeting)
+                .HasForeignKey(m => m.MeetingId)
+                .HasPrincipalKey(m => m.Id);
+            entity.HasOne(x => x.Organizer)
+                .WithMany(c => c.Meetings)
+                .HasForeignKey(j => j.OrganizerId);
+        });
+        builder.Entity<UserMeeting>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.UserId, e.MeetingId });
+            entity.HasOne(mu => mu.Meeting)
+                .WithMany(c => c.UserMeetings)
+                .HasForeignKey(x => x.MeetingId);
+            entity.HasOne(mu => mu.User)
+                .WithMany(c => c.UserMeetings)
+                .HasForeignKey(j => j.UserId);
         });
     }
 }

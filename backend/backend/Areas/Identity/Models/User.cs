@@ -34,4 +34,6 @@ public class User : IdentityUser
     public IEnumerable<Analytic>? Analytics { get; set; }
     public IEnumerable<Tasks>? Tasks { get; set; }
     public IEnumerable<MessageUsers>? MessageUsers { get; set; }
+    public IEnumerable<UserMeeting>? UserMeetings { get; set; }
+    public IEnumerable<Meeting>? Meetings { get; set; }
 }

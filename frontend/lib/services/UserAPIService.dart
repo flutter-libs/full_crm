@@ -7,7 +7,7 @@ import 'package:frontend/widgets/toast_alerts.dart' as alert;
 
 
 class UserAPIService {
-  final Dio _dio = Dio(BaseOptions(baseUrl: 'http://your-api-url.com/api/users'));
+  final Dio _dio = Dio(BaseOptions(baseUrl: 'http://localhost:5244/api/Identity/User'));
 
   get context => BuildContext;
 
