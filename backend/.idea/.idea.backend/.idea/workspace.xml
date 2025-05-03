@@ -8,12 +8,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d1425baa-9dd4-40ca-a856-768282ecbbab" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Models/Company.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.backend/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.backend/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Playground/user.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/fonts/UFL.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/fonts/Ubuntu-Bold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/fonts/Ubuntu-BoldItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/fonts/Ubuntu-Italic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/fonts/Ubuntu-Light.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/fonts/Ubuntu-LightItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/fonts/Ubuntu-Medium.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/fonts/Ubuntu-MediumItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/fonts/Ubuntu-Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/lib/widgets/toast_alerts.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.backend/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Communication/Controllers/EmailController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Communication/Controllers/EmailController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Identity/Controllers/RoleController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Identity/Controllers/RoleController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Identity/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Identity/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Identity/Models/Role.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Identity/Models/Role.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Identity/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Identity/Models/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Identity/Models/ViewModels/RoleViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Identity/Models/ViewModels/RoleViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Controllers/ContactController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Controllers/ContactController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Controllers/JobController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Controllers/JobController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Controllers/LeadController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Controllers/LeadController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Models/Campaign.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Models/Campaign.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Models/Contact.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Models/Contact.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Models/Tasks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Models/Tasks.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Data/ApplicationDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Data/ApplicationDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Models/ViewModels/CampaignViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Models/ViewModels/CampaignViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Models/ViewModels/ContactViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Models/ViewModels/ContactViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Models/ViewModels/JobViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Models/ViewModels/JobViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Controllers/ErrorController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Controllers/ErrorController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/lib/screens/register_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/lib/screens/register_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/lib/services/UserAPIService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/lib/services/UserAPIService.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/macos/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/macos/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/macos/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/macos/Runner.xcworkspace/contents.xcworkspacedata" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,12 +65,12 @@
     &quot;assignee&quot;: &quot;stradtkt&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/flutter-libs/fullstack_crm.git&quot;,
-    &quot;accountId&quot;: &quot;43419a6b-3e8b-4f1f-bdfb-7df966a277d0&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/flutter-libs/full_crm.git",
+    "accountId": "43419a6b-3e8b-4f1f-bdfb-7df966a277d0"
   }
-}</component>
+}]]></component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -146,6 +179,7 @@
       <workItem from="1745967924987" duration="5469000" />
       <workItem from="1746064354253" duration="2673000" />
       <workItem from="1746089098765" duration="5866000" />
+      <workItem from="1746247157717" duration="1604000" />
     </task>
     <servers />
   </component>

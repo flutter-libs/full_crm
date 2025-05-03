@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using backend.Areas.Communication.Models;
 using backend.Areas.Main.Models;
 using backend.Areas.Utility.Models;
-using backend.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace backend.Areas.Identity.Models;

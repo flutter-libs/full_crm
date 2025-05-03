@@ -1,7 +1,6 @@
 using backend.Areas.Main.Models;
 using backend.Areas.Main.Services;
 using backend.Data;
-using backend.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Areas.Main.Controllers;

@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using backend.Areas.Identity.Models;
-using backend.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Areas.Main.Models;

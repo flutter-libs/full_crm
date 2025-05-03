@@ -2,7 +2,6 @@ using backend.Areas.Identity.Models;
 using backend.Areas.Identity.Models.ViewModels;
 using backend.Areas.Identity.Services;
 using backend.Data;
-using backend.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

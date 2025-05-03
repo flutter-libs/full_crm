@@ -17,24 +17,12 @@ namespace backend;
 
 public class Program
 {
+
     public static void Main(string[] args)
-    {
-        CreateHostBuilder(args).Build().Run();
-    }
-
-    private static IHostBuilder CreateHostBuilder(string[] args)
-        => Host.CreateDefaultBuilder(args)
-            .ConfigureWebHostDefaults(
-                webBuilder => webBuilder.UseStartup<Startup>());
-}
-
-public class Startup
-{
-    public void ConfigureServices(IServiceCollection services, string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-        services.AddDbContext<ApplicationDbContext>(options =>
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));;
         
              
@@ -49,11 +37,11 @@ public class Startup
         Log.Logger = new LoggerConfiguration()
             .WriteTo.MySQL(connectionString: connectionString, tableName: "Logs")
             .CreateLogger();
-        services.AddDbContext<ApplicationDbContext>(options =>
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 // Add Identity
-        services.AddIdentityCore<User>(options =>
+        builder.Services.AddIdentityCore<User>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
@@ -73,7 +61,7 @@ public class Startup
         var jwtSettings = builder.Configuration.GetSection("Jwt");
         var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
-        services.AddAuthentication(options =>
+        builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -97,7 +85,7 @@ public class Startup
                     IssuerSigningKey = new SymmetricSecurityKey(key)
                 };
             });
-        services.ConfigureApplicationCookie(options =>
+        builder.Services.ConfigureApplicationCookie(options =>
         {
             options.LoginPath = "/Identity/Login";
             options.Cookie.Name = "crm_cookie";
@@ -108,12 +96,7 @@ public class Startup
             options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
             options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
         });
-        services.Configure<PasswordHasherOptions>(option =>
-        {
-            option.IterationCount = 12000;
-            option.CompatibilityMode = PasswordHasherCompatibilityMode.IdentityV2;
-        });
-        services.AddCors(options =>
+        builder.Services.AddCors(options =>
         {
             options.AddPolicy("CorsPolicy", policy =>
             {
@@ -123,54 +106,32 @@ public class Startup
                 // (Optional: restrict origins in production)
             });
         });
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IRoleRepository, RoleRepository>();
-        services.AddScoped<IEmailRepository, EmailRepository>();
-        services.AddScoped<IMessageRepository, MessageRepository>();
-        services.AddScoped<IMessageUserRepository, MessageUsersRepository>();
-        services.AddScoped<IContactRepository, ContactRepository>();
-        services.AddScoped<IJobRepository, JobRepository>();
-        services.AddScoped<ICampaignRepository, CampaignRepository>();
-        services.AddScoped<IAnalyticRepository, AnalyticRepository>();
-        services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
-        services.AddControllers();
-        services.AddSwaggerGen();
-    }
-    public void Configure(IApplicationBuilder ap, IWebHostEnvironment env, string[] args)
-    {
-        var builder = WebApplication.CreateBuilder(args);
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+        builder.Services.AddScoped<IEmailRepository, EmailRepository>();
+        builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+        builder.Services.AddScoped<IMessageUserRepository, MessageUsersRepository>();
+        builder.Services.AddScoped<IContactRepository, ContactRepository>();
+        builder.Services.AddScoped<IJobRepository, JobRepository>();
+        builder.Services.AddScoped<ICampaignRepository, CampaignRepository>();
+        builder.Services.AddScoped<IAnalyticRepository, AnalyticRepository>();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+        builder.Services.AddControllers();
+        
         var app = builder.Build();
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-        else
-        {
-            app.UseExceptionHandler("/Error");
-        }
+
         app.UseCors("CorsPolicy");
         app.UseHttpsRedirection();
         app.UseAuthentication();
         app.UseAuthorization();
-        
+
         app.MapControllers();
         app.Run();
-    }
-}
-
-public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
-{
-    public ApplicationDbContext CreateDbContext(string[] args)
-    {
-        var config = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json")
-            .Build();
-        var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-        var connectionString = config.GetConnectionString("DefaultConnection");
-        optionsBuilder.UseMySql(connectionString!, new MySqlServerVersion(new Version(8, 0, 25)));
-        return new ApplicationDbContext(optionsBuilder.Options);
     }
 }

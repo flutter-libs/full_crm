@@ -2,7 +2,8 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers;
-
+[ApiController]
+[Route("api/[controller]")]
 public class ErrorController : ControllerBase
 {
     private readonly ILogger<ErrorController> _logger;
@@ -11,7 +12,7 @@ public class ErrorController : ControllerBase
         _logger = logger;
     }
 
-    [Route("/error-development")]
+    [HttpGet("error-development")]
     public IActionResult HandleErrorDevelopment([FromServices] IHostEnvironment environment)
     {
         if (!environment.IsDevelopment())
@@ -25,6 +26,6 @@ public class ErrorController : ControllerBase
         );
     }
 
-    [Route("/error")]
+    [HttpGet("/error")]
     public IActionResult HandleError() => Problem();
 }

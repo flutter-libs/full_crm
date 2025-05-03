@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using backend.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace backend.Areas.Identity.Models.ViewModels;
