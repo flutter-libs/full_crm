@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/constants/form_fields.dart';
 import 'package:frontend/models/user.dart';
 import 'package:frontend/screens/dashboard_screen.dart';
 import 'package:frontend/screens/login_screen.dart';
 import 'package:frontend/services/user_api_service.dart';
+import 'package:frontend/widgets/custom_app_bar.dart';
 import 'package:frontend/widgets/toast_alerts.dart' as alert;
 import 'package:intl/intl.dart';
 
@@ -131,19 +133,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     double widthForm = screenWidth > 600 ? 600 : 300;
     double sepWidth = widthForm == 350 ? 200 : 100;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "CRM: Sign Up",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: "Ubuntu-Bold",
-            fontSize: 24.0,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.indigo,
-      ),
+      appBar: CustomAppBar(title: 'CRM: Sign Up', showBackButton: false),
       body: Center(
         child: SizedBox(
           width: widthForm,
@@ -204,68 +194,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                           controller: _userName,
-                          decoration: const InputDecoration(
-                            label: Text(
-                              'Username',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Ubuntu',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14.0
-                              ),
-                            ),
-                          ),
+                          decoration: kTextInputUserNameStyle,
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                           controller: _email,
-                          decoration: const InputDecoration(
-                            label: Text(
-                              'Email',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Ubuntu',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14.0
-                              ),
-                            ),
-                          ),
+                          decoration: kTextInputEmailStyle,
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                           controller: _name,
-                          decoration: const InputDecoration(
-                            label: Text(
-                              'Full Name',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Ubuntu',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14.0
-                              ),
-                            ),
-                          ),
+                          decoration: kTextInputNameStyle,
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                           controller: _address,
-                          decoration: const InputDecoration(
-                            label: Text(
-                              'Address',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Ubuntu',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14.0
-                              ),
-                            ),
-                          ),
+                          decoration: kTextInputAddressStyle,
                         ),
                       ),
                       Padding(
@@ -289,34 +239,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                           controller: _state,
-                          decoration: const InputDecoration(
-                            label: Text(
-                              'State',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Ubuntu',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14.0
-                              ),
-                            ),
-                          ),
+                          decoration: kTextInputStateStyle,
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                           controller: _zipCode,
-                          decoration: const InputDecoration(
-                            label: Text(
-                              'Zip Code',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Ubuntu',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14.0
-                              ),
-                            ),
-                          ),
+                          decoration:kTextInputZipCodeStyle,
                         ),
                       ),
                       Padding(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/constants/form_fields.dart';
 import 'package:frontend/screens/dashboard_screen.dart';
 import 'package:frontend/screens/register_screen.dart';
 import 'package:frontend/services/user_api_service.dart';
+import 'package:frontend/widgets/custom_app_bar.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -51,82 +53,67 @@ class _LoginScreenState extends State<LoginScreen> {
     double widthForm = screenWidth > 600 ? 600 : 300;
     double sepWidth = widthForm == 600 ? 230 : 110;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "CRM: Sign Up",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: "Ubuntu-Bold",
-            fontSize: 24.0,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.indigo,
-      ),
+      appBar: CustomAppBar(title: 'CRM: Sign In', showBackButton: false),
       body: Center(
         child: SizedBox(
-          height: heightForm,
           width: widthForm,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
+          height: heightForm,
+          child: SingleChildScrollView(
             child: Card(
               elevation: 10.0,
-              shadowColor: Color.fromRGBO(55, 55, 55, 1),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 30.0),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
+              shadowColor: Color.fromRGBO(33, 33, 33, 1),
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 30.0),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Login',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            color: Colors.indigoAccent,
+                            fontSize: 35.0,
+                            fontFamily: 'Ubuntu',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: sepWidth),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, RegisterScreen.id);
+                          },
                           child: Text(
-                            'Login',
-                            textAlign: TextAlign.right,
+                            'Register instead?',
+                            textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.indigoAccent,
-                              fontSize: 35.0,
+                              color: Colors.green,
+                              fontWeight: FontWeight.normal,
                               fontFamily: 'Ubuntu',
-                              fontWeight: FontWeight.w700,
+                              fontSize: 16.0,
                             ),
                           ),
                         ),
-                        SizedBox(width: sepWidth),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, RegisterScreen.id);
-                            },
-                            child: Text(
-                              'Register instead?',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.green,
-                                fontWeight: FontWeight.normal,
-                                fontFamily: 'Ubuntu',
-                                fontSize: 16.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Form(
-                      key: _formKey,
+                      ),
+                    ],
+                  ),
+                  Form(
+                    key: _formKey,
+                    child: Padding(
+                      padding: EdgeInsets.all(20.0),
                       child: Column(
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: TextFormField(
                               controller: _emailController,
-                              decoration: const InputDecoration(labelText: 'Email'),
+                              decoration: kTextInputEmailStyle,
                               keyboardType: TextInputType.emailAddress,
                               validator:
                                   (val) =>
@@ -187,6 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   },
                                 ),
                               ),
+                              keyboardType: TextInputType.text,
                               obscureText: _obscurePassword,
                             ),
                           ),
@@ -208,26 +196,26 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                   child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        "Login",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontFamily: "Ubuntu",
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 22.0,
-                                        ),
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Login",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: "Ubuntu",
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 22.0,
                                       ),
                                     ),
                                   ),
                                 ),
+                              ),
                           const SizedBox(height: 16),
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

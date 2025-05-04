@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/screens/dashboard_screen.dart';
 import 'package:frontend/screens/login_screen.dart';
+import 'package:frontend/screens/meeting/add_participants_screen.dart';
+import 'package:frontend/screens/meeting/meeting_create_screen.dart';
+import 'package:frontend/screens/meeting/meeting_detail_screen.dart';
+import 'package:frontend/screens/meeting/meeting_list_screen.dart';
 import 'package:frontend/screens/register_screen.dart';
 import 'package:toastification/toastification.dart';
 import 'package:window_manager/window_manager.dart';
@@ -41,6 +45,15 @@ class CRMFrontend extends StatelessWidget {
             RegisterScreen.id: (context) => RegisterScreen(),
             LoginScreen.id: (context) => LoginScreen(),
             DashboardScreen.id: (context) => DashboardScreen(),
+            MeetingListScreen.id: (context) => MeetingListScreen(),
+            MeetingDetailScreen.id: (context) => MeetingDetailScreen(
+              meetingId: ModalRoute.of(context)?.settings.arguments as int?,
+            ),
+            MeetingCreateScreen.id: (context) => MeetingCreateScreen(),
+            AddParticipantsScreen.id: (context) => AddParticipantsScreen(
+              meetingId: ModalRoute.of(context)?.settings.arguments as int?,
+              allUsers: [],
+            )
           },
           debugShowCheckedModeBanner: false,
         )

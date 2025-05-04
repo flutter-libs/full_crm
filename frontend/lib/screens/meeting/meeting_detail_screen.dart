@@ -1,33 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/models/user_meeting.dart';
 import 'package:frontend/services/meeting_api_service.dart';
-import 'package:frontend/models/user_meeting.dart';
-import 'package:frontend/services/meeting_api_service.dart';
+import 'package:frontend/widgets/custom_app_bar.dart';
+
 
 class MeetingDetailScreen extends StatelessWidget {
-  final int meetingId;
-  const MeetingDetailScreen({Key? key, required this.meetingId}) : super(key: key);
+  final int? meetingId;
+  const MeetingDetailScreen({super.key, this.meetingId});
   static const String id = "meeting_detail_screen";
   @override
   Widget build(BuildContext context) {
     final MeetingAPIService _service = MeetingAPIService();
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "CRM: Meeting Details",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: "Ubuntu-Bold",
-            fontSize: 24.0,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.indigo,
-      ),
+      appBar: CustomAppBar(title: 'CRM: Meeting Detail', showBackButton: false),
       body: FutureBuilder<UserMeeting>(
-        future: _service.getMeetingById(meetingId),
+        future: _service.getMeetingById(meetingId!),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting)
             return const Center(child: CircularProgressIndicator());

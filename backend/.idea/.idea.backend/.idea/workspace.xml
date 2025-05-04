@@ -8,34 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d1425baa-9dd4-40ca-a856-768282ecbbab" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Communication/Controllers/MeetingController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Communication/Models/ViewModels/MeetingViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Communication/Models/ViewModels/MessageViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Communication/Services/IMeetingRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Communication/Services/MeetingRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/models/analytic.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/models/campaign.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/models/company.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/models/contact.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/models/enums/category.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/models/enums/period.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/models/job.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/models/lead.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/models/meeting.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/models/message.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/models/message_users.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/models/role.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/models/tasks.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/models/user_meeting.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/models/user_roles.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/services/meeting_api_service.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/lib/screens/meeting/meeting_create_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.backend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/lib/models/User.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/lib/models/user.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/lib/screens/register_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/lib/screens/register_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/lib/services/UserAPIService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/lib/services/user_api_service.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/lib/screens/meeting/meeting_detail_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/lib/screens/meeting/meeting_detail_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/lib/screens/meeting/meeting_list_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/lib/screens/meeting/meeting_list_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +147,7 @@
       <workItem from="1746089098765" duration="5866000" />
       <workItem from="1746247157717" duration="2905000" />
       <workItem from="1746290993525" duration="10919000" />
-      <workItem from="1746330772091" duration="3504000" />
+      <workItem from="1746330772091" duration="5625000" />
     </task>
     <servers />
   </component>
