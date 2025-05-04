@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:frontend/models/User.dart';
+import 'package:frontend/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:frontend/widgets/toast_alerts.dart' as alert;
 

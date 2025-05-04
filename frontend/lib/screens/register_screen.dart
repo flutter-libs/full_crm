@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/models/User.dart';
+import 'package:frontend/models/user.dart';
 import 'package:frontend/screens/dashboard_screen.dart';
 import 'package:frontend/screens/login_screen.dart';
-import 'package:frontend/services/UserAPIService.dart';
+import 'package:frontend/services/user_api_service.dart';
 import 'package:frontend/widgets/toast_alerts.dart' as alert;
 import 'package:intl/intl.dart';
 
