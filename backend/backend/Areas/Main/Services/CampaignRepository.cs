@@ -60,4 +60,9 @@ public class CampaignRepository : ICampaignRepository
     {
         return await _context.Campaigns.AnyAsync(c => c.Id == id);
     }
+
+    public async Task<int> CountAsync()
+    {
+        return await _context.Campaigns.CountAsync();
+    }
 }

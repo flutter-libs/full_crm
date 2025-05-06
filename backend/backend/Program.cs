@@ -115,6 +115,7 @@ public class Program
         builder.Services.AddScoped<IContactRepository, ContactRepository>();
         builder.Services.AddScoped<IJobRepository, JobRepository>();
         builder.Services.AddScoped<ICampaignRepository, CampaignRepository>();
+        builder.Services.AddScoped<ITasksRepository, TasksRepository>();
         builder.Services.AddScoped<IAnalyticRepository, AnalyticRepository>();
         
         builder.Services.AddEndpointsApiExplorer();

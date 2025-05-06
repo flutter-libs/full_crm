@@ -34,5 +34,6 @@ public class Tasks
     public DateTime DateCreated { get; set; } = DateTime.Now;
     public DateTime? DateUpdated { get; set; }
     public DateTime? DateCompleted { get; set; } 
+    public IEnumerable<TaskNotes>? TaskNotes { get; set; }
     
 }

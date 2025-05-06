@@ -5,6 +5,7 @@ import 'package:frontend/screens/dashboard_screen.dart';
 import 'package:frontend/screens/login_screen.dart';
 import 'package:frontend/services/user_api_service.dart';
 import 'package:frontend/widgets/custom_app_bar.dart';
+import 'package:frontend/widgets/side_nav_drawer.dart';
 import 'package:frontend/widgets/toast_alerts.dart' as alert;
 import 'package:intl/intl.dart';
 
@@ -134,6 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     double sepWidth = widthForm == 350 ? 200 : 100;
     return Scaffold(
       appBar: CustomAppBar(title: 'CRM: Sign Up', showBackButton: false),
+      drawer: SideNavDrawer(),
       body: Center(
         child: SizedBox(
           width: widthForm,

@@ -4,6 +4,7 @@ import 'package:frontend/screens/dashboard_screen.dart';
 import 'package:frontend/screens/register_screen.dart';
 import 'package:frontend/services/user_api_service.dart';
 import 'package:frontend/widgets/custom_app_bar.dart';
+import 'package:frontend/widgets/side_nav_drawer.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -54,6 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
     double sepWidth = widthForm == 600 ? 230 : 110;
     return Scaffold(
       appBar: CustomAppBar(title: 'CRM: Sign In', showBackButton: false),
+      drawer: SideNavDrawer(),
       body: Center(
         child: SizedBox(
           width: widthForm,

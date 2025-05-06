@@ -24,7 +24,7 @@ namespace backend.Areas.Main.Controllers;
 
         // GET: api/Contact
         [HttpGet]
-        public async Task<IActionResult> GetAllContacts()
+        public async Task<ActionResult<IEnumerable<Contact>>> GetAllContacts()
         {
             var contacts = await _contactRepository.GetAllContactsAsync();
             return Ok(contacts);
@@ -32,7 +32,7 @@ namespace backend.Areas.Main.Controllers;
 
         // GET: api/Contact/{id}
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetContactById(int id)
+        public async Task<ActionResult> GetContactById(int id)
         {
             var contact = await _contactRepository.GetContactByIdAsync(id);
             if (contact == null)
@@ -43,7 +43,7 @@ namespace backend.Areas.Main.Controllers;
 
         // GET: api/Contact/owner/{ownerUserId}
         [HttpGet("owner/{ownerUserId}")]
-        public async Task<IActionResult> GetContactsByOwner(string ownerUserId)
+        public async Task<ActionResult> GetContactsByOwner(string ownerUserId)
         {
             var contacts = await _contactRepository.GetContactsByOwnerAsync(ownerUserId);
             return Ok(contacts);
@@ -51,7 +51,7 @@ namespace backend.Areas.Main.Controllers;
 
         // POST: api/Contact
         [HttpPost]
-        public async Task<IActionResult> CreateContact([FromBody] Contact contact)
+        public async Task<ActionResult> CreateContact([FromBody] Contact contact)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -62,7 +62,7 @@ namespace backend.Areas.Main.Controllers;
 
         // PUT: api/Contact/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateContact(int id, [FromBody] Contact contact)
+        public async Task<ActionResult> UpdateContact(int id, [FromBody] Contact contact)
         {
             if (id != contact.Id)
                 return BadRequest("Contact ID mismatch.");
@@ -77,7 +77,7 @@ namespace backend.Areas.Main.Controllers;
 
         // DELETE: api/Contact/{id}
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteContact(int id)
+        public async Task<ActionResult> DeleteContact(int id)
         {
             var existingContact = await _contactRepository.GetContactByIdAsync(id);
             if (existingContact == null)
@@ -85,5 +85,12 @@ namespace backend.Areas.Main.Controllers;
 
             await _contactRepository.DeleteContactAsync(id);
             return NoContent();
+        }
+
+        [HttpGet("contactCount")]
+        public async Task<ActionResult<int>> GetContactCount()
+        {
+            var contacts = await _contactRepository.GetAllContactsAsync();
+            return Ok(contacts);
         }
     }

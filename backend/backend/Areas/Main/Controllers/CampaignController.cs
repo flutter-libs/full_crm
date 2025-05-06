@@ -44,7 +44,7 @@ public class CampaignController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, Campaign campaign)
+    public async Task<ActionResult> UpdateCampaign(int id, Campaign campaign)
     {
         if (id != campaign.Id)
             return BadRequest();
@@ -57,12 +57,19 @@ public class CampaignController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<ActionResult> DeleteCampaign(int id)
     {
         if (!await _repository.ExistsAsync(id))
             return NotFound();
 
         await _repository.DeleteAsync(id);
         return NoContent();
+    }
+
+    [HttpGet("campaignCount")]
+    public async Task<ActionResult<int>> GetCampaignCount()
+    {
+        var campaigns = await _repository.CountAsync();
+        return Ok(campaigns);
     }
 }

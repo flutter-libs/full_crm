@@ -20,13 +20,17 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
     public DbSet<Job> Jobs { get; set; }
     public DbSet<EmailMessage> Emails { get; set; }
     public DbSet<Campaign> Campaigns { get; set; }
-    public DbSet<Tasks> Tasks { get; set; }
+    public DbSet<Tasks?> Tasks { get; set; }
     public DbSet<Company> Companies { get; set; }
     public DbSet<Analytic> Analytics { get; set; }
     public DbSet<Message> Messages { get; set; }
     public DbSet<MessageUsers> MessageUsers { get; set; }
     public DbSet<Meeting> Meetings { get; set; }
     public DbSet<UserMeeting> UserMeetings { get; set; }
+    public DbSet<Note> Notes { get; set; }
+    public DbSet<UserNotes> UserNotes { get; set; }
+    public DbSet<TaskNotes> TaskNotes { get; set; }
+    public DbSet<LeadNotes> LeadNotes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -241,6 +245,40 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
             entity.HasOne(mu => mu.User)
                 .WithMany(c => c.UserMeetings)
                 .HasForeignKey(j => j.UserId);
+        });
+        builder.Entity<Note>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+        });
+        builder.Entity<UserNotes>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.NoteId, e.UserId });
+            entity.HasOne(n => n.Note)
+                .WithMany(n => n.UserNotes)
+                .HasForeignKey(n => n.NoteId);
+            entity.HasOne(n => n.User)
+                .WithMany(n => n.UserNotes)
+                .HasForeignKey(n => n.UserId);
+        });
+        builder.Entity<TaskNotes>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.TaskId, e.NoteId });
+            entity.HasOne(t => t.Note)
+                .WithMany(n => n.TaskNotes)
+                .HasForeignKey(t => t.NoteId);
+            entity.HasOne(t => t.Task)
+                .WithMany(n => n.TaskNotes)
+                .HasForeignKey(t => t.TaskId);
+        });
+        builder.Entity<LeadNotes>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.LeadId, e.NoteId });
+            entity.HasOne(n => n.Note)
+                .WithMany(n => n.LeadNotes)
+                .HasForeignKey(n => n.NoteId);
+            entity.HasOne(n => n.Lead)
+                .WithMany(n => n.LeadNotes)
+                .HasForeignKey(n => n.LeadId);
         });
     }
 }

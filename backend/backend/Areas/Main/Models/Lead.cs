@@ -20,13 +20,13 @@ public class Lead
     public string LeadEmail { get; set; }
     public string LeadFax { get; set; }
     public string LeadWebsite { get; set; }
-    public string LeadNotes { get; set; }
     public DateTime Created { get; set; }
     public DateTime Updated { get; set; }
     
     public string CreatedBy { get; set; }
     [ForeignKey("CreatedBy")] 
     public User CreatedByUser { get; set; }
+    public virtual IEnumerable<LeadNotes>? LeadNotes{ get; set; }
     public virtual IEnumerable<Campaign>? Campaigns { get; set; }
     public virtual IEnumerable<Meeting>? Meetings { get; set; }
 }
