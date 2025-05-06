@@ -32,4 +32,5 @@ public class Company
     public DateTime DateCreated { get; set; } = DateTime.Now;
     public IEnumerable<Contact>? Contacts { get; set; }
     public IEnumerable<Tasks>? Tasks { get; set; }
+    public IEnumerable<CompanyNotes>? CompanyNotes { get; set; }
 }

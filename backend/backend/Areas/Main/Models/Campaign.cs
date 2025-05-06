@@ -52,4 +52,5 @@ public class Campaign
     public virtual ICollection<Lead> Leads { get; set; }
     public virtual ICollection<Contact> Contacts { get; set; }
     public virtual ICollection<Tasks> Tasks { get; set; }
+    public virtual IEnumerable<CampaignNotes> CampaignNotes { get; set; }
 }

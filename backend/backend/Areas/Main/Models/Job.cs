@@ -49,4 +49,5 @@ public class Job
     [ForeignKey(nameof(CreatedByUserId))]
     public virtual User CreatedByUser { get; set; }
     public virtual IEnumerable<Tasks>? Tasks { get; set; }
+    public virtual IEnumerable<JobNotes>? JobNotes { get; set; }
 }

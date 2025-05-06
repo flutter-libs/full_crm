@@ -116,6 +116,13 @@ public class Program
         builder.Services.AddScoped<IJobRepository, JobRepository>();
         builder.Services.AddScoped<ICampaignRepository, CampaignRepository>();
         builder.Services.AddScoped<ITasksRepository, TasksRepository>();
+        builder.Services.AddScoped<INoteRepository, NoteRepository>();
+        builder.Services.AddScoped<IUserNoteRepository, UserNoteRepository>();
+        builder.Services.AddScoped<ICampaignNotesRepository, CampaignNotesRepository>();
+        builder.Services.AddScoped<ITaskNotesRepository, TaskNotesRepository>();
+        builder.Services.AddScoped<ILeadNotesRepository, LeadNotesRepository>();
+        builder.Services.AddScoped<IContactNotesRepository, ContactNotesRepository>();
+        builder.Services.AddScoped<IJobNoteRepository, JobNoteRepository>();
         builder.Services.AddScoped<IAnalyticRepository, AnalyticRepository>();
         
         builder.Services.AddEndpointsApiExplorer();

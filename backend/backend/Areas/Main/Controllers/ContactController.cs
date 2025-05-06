@@ -2,6 +2,7 @@ using backend.Areas.Main.Models;
 using backend.Areas.Main.Services;
 using backend.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Areas.Main.Controllers;
 
@@ -14,12 +15,15 @@ namespace backend.Areas.Main.Controllers;
         private readonly ApplicationDbContext _context;
         private readonly IContactRepository _contactRepository;
         private readonly ILogger<ContactController> _logger;
+        private readonly IContactNotesRepository _contactNotesRepository;
 
-        public ContactController(ApplicationDbContext context, IContactRepository contactRepository, ILogger<ContactController> logger)
+        public ContactController(ApplicationDbContext context, IContactRepository contactRepository, ILogger<ContactController> logger,
+            IContactNotesRepository contactNotesRepository)
         {
             _context = context;
             _contactRepository = contactRepository;
             _logger = logger;
+            _contactNotesRepository = contactNotesRepository;
         }
 
         // GET: api/Contact
@@ -92,5 +96,80 @@ namespace backend.Areas.Main.Controllers;
         {
             var contacts = await _contactRepository.GetAllContactsAsync();
             return Ok(contacts);
+        }
+
+        [HttpGet("contactNotes")]
+        public async Task<ActionResult<IEnumerable<ContactNotes>>> GetContactNotes()
+        {
+            var contactNotes = await _contactNotesRepository.GetAllContactNotesAsync();
+            return Ok(contactNotes);
+        }
+
+        [HttpGet("contactNotes/{id}")]
+        public async Task<ActionResult<ContactNotes>> GetContactNotes(int id)
+        {
+            var contactNotes = await _contactNotesRepository.GetContactNoteById(id);
+            return Ok(contactNotes);
+        }
+
+        [HttpPut("contactNotes/{id}")]
+        public async Task<ActionResult> UpdateContactNotes(int id, [FromBody] ContactNotes notes)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                await _contactNotesRepository.UpdateAsync(id, notes);
+                return Ok("Notes updated.");
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                _logger.LogInformation($"Updating Campaign Note with id {id} failed", ex);
+                return BadRequest($"Failed to update Campaign Note with id - DbUpdateConcurrencyException {id}");
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogInformation($"Updating Campaign Note with id {id} failed", ex);
+                return BadRequest($"Failed to update Campaign Note with id - DbUpdateException {id}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation($"Updating Campaign Note with id {id} failed", ex);
+                return BadRequest($"Failed to update Campaign Note with id - Exception {id}");
+            }
+        }
+
+        [HttpPost("contactNotes")]
+        public async Task<ActionResult<ContactNotes>> CreateContactNotes([FromBody] ContactNotes notes)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                await _contactNotesRepository.AddAsync(notes);
+                return Ok("Notes created.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("contactNotes/{id}")]
+        public async Task<ActionResult> DeleteContactNotes(int id)
+        {
+            await _contactNotesRepository.DeleteAsync(id);
+            return Ok("Notes deleted.");
+        }
+
+        [HttpGet("contactNotes/count")]
+        public async Task<ActionResult<int>> GetContactNotesCount()
+        {
+            return Ok(await _contactNotesRepository.CountAsync());
         }
     }

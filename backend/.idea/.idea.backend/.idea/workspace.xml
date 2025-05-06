@@ -8,29 +8,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d1425baa-9dd4-40ca-a856-768282ecbbab" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Controllers/TasksController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/ILeadRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/ITasksRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/LeadRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/TasksRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/screens/lead/lead_create_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/screens/lead/lead_detail_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/screens/lead/lead_list_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/screens/lead/lead_update_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/services/lead_api_service.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/lib/widgets/side_nav_drawer.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Controllers/CompanyController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Models/CampaignNotes.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Models/CompanyNotes.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Models/ContactNotes.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Models/JobNotes.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/CampaignNotesRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/CompanyNoteRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/CompanyRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/ContactNotesRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/ICampaignNotesRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/ICompanyNoteRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/ICompanyRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/IContactNotesRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/IJobNoteRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/ILeadNotesRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/ITaskNotesRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/IUserNoteRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/JobNoteRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/LeadNotesRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/TaskNotesRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/UserNoteRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.backend/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Controllers/CampaignController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Controllers/CampaignController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Controllers/ContactController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Controllers/ContactController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Controllers/LeadController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Controllers/LeadController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Services/CampaignRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/CampaignRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Services/ICampaignRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/ICampaignRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Controllers/JobController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Controllers/JobController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Controllers/NoteController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Controllers/NoteController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Controllers/TasksController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Controllers/TasksController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Models/Campaign.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Models/Campaign.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Models/Company.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Models/Company.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Models/Contact.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Models/Contact.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Models/Job.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Models/Job.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Models/Note.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Models/Note.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/Data/ApplicationDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Data/ApplicationDbContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/lib/screens/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/lib/screens/dashboard_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/lib/screens/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/lib/screens/login_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/lib/screens/register_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/lib/screens/register_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +178,7 @@
       <workItem from="1746247157717" duration="2905000" />
       <workItem from="1746290993525" duration="10919000" />
       <workItem from="1746330772091" duration="7506000" />
-      <workItem from="1746481072089" duration="7713000" />
+      <workItem from="1746481072089" duration="25596000" />
     </task>
     <task id="LOCAL-00001" summary="Added some configuration and styling to the frontend">
       <option name="closed" value="true" />

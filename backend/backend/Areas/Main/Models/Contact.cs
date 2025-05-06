@@ -67,4 +67,5 @@ public class Contact
     public virtual IEnumerable<Campaign>? Campaigns { get; set; }
     public virtual IEnumerable<Tasks>? Tasks { get; set; }
     public virtual IEnumerable<Meeting>? Meetings { get; set; }
+    public virtual IEnumerable<ContactNotes>? ContactNotes { get; set; }
 }

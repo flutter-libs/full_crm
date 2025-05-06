@@ -12,11 +12,13 @@ public class TasksController : ControllerBase
 {
     private readonly ITasksRepository _tasksRepository;
     private readonly ILogger<TasksController> _logger;
-
-    public TasksController(ITasksRepository tasksRepository, ILogger<TasksController> logger)
+    private readonly ITaskNotesRepository _taskNotesRepository;
+    public TasksController(ITasksRepository tasksRepository, ILogger<TasksController> logger,
+        ITaskNotesRepository taskNotesRepository)
     {
         _tasksRepository = tasksRepository;
         _logger = logger;
+        _taskNotesRepository = taskNotesRepository;
     }
 
     [HttpGet]
@@ -100,5 +102,73 @@ public class TasksController : ControllerBase
     {
         var tasks = await _tasksRepository.CountAsync();
         return Ok(tasks);
+    }
+
+    [HttpGet("notes")]
+    public async Task<ActionResult<IEnumerable<TaskNotes>>> GetNotes()
+    {
+        return Ok(await _taskNotesRepository.GetAllTaskNotesAsync());
+    }
+
+    [HttpGet("notes/{id}")]
+    public async Task<ActionResult<TaskNotes>> GetNote(int id)
+    {
+        var note = await _taskNotesRepository.GetTaskNoteById(id);
+        return Ok(note);
+    }
+
+    [HttpPost("notes")]
+    public async Task<ActionResult<TaskNotes>> CreateNote(TaskNotes note)
+    {
+        if (!ModelState.IsValid) return BadRequest();
+        try
+        {
+            await _taskNotesRepository.AddAsync(note);
+            return Ok("Note created");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPut("notes/{id}")]
+    public async Task<ActionResult<TaskNotes>> UpdateNote(int id, TaskNotes note)
+    {
+        if (!ModelState.IsValid) return BadRequest();
+        try
+        {
+            await _taskNotesRepository.UpdateAsync(id, note);
+            return Ok("Note updated");
+        }
+        catch (DbUpdateConcurrencyException ex)
+        {
+            _logger.LogInformation($"Updating Note with id {id} failed", ex);
+            return BadRequest($"Failed to update Note with id - DbUpdateConcurrencyException {id}");
+        }
+        catch (DbUpdateException ex)
+        {
+            _logger.LogInformation($"Updating Note with id {id} failed", ex);
+            return BadRequest($"Failed to update Note with id - DbUpdateException {id}");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogInformation($"Updating Note with id {id} failed", ex);
+            return BadRequest($"Failed to update Note with id - Exception {id}");
+        }
+    }
+
+    [HttpDelete("notes/{id}")]
+    public async Task<ActionResult<Tasks>> DeleteNote(int id)
+    {
+        if (!ModelState.IsValid) return BadRequest();
+        await _taskNotesRepository.DeleteAsync(id);
+        return Ok("Note deleted");
+    }
+
+    [HttpGet("notes/count")]
+    public async Task<ActionResult<int>> GetCountNotes()
+    {
+        return Ok(await _taskNotesRepository.CountAsync());
     }
 }

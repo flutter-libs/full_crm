@@ -13,7 +13,11 @@ public class Note
     public string Content { get; set; }
     public DateTime Created { get; set; }
     public DateTime Updated { get; set; }
-    public IEnumerable<UserNotes> UserNotes { get; set; }
-    public IEnumerable<LeadNotes> LeadNotes { get; set; }
-    public IEnumerable<TaskNotes> TaskNotes { get; set; }
+    public IEnumerable<UserNotes>? UserNotes { get; set; }
+    public IEnumerable<LeadNotes>? LeadNotes { get; set; }
+    public IEnumerable<TaskNotes>? TaskNotes { get; set; }
+    public IEnumerable<CompanyNotes>? CompanyNotes { get; set; }
+    public IEnumerable<ContactNotes>? ContactNotes { get; set; }
+    public IEnumerable<CampaignNotes>? CampaignNotes { get; set; }
+    public IEnumerable<JobNotes>? JobNotes { get; set; }
 }
