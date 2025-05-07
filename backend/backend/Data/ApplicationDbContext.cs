@@ -20,7 +20,7 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
     public DbSet<Job> Jobs { get; set; }
     public DbSet<EmailMessage> Emails { get; set; }
     public DbSet<Campaign> Campaigns { get; set; }
-    public DbSet<Tasks?> Tasks { get; set; }
+    public DbSet<Tasks> Tasks { get; set; }
     public DbSet<Company> Companies { get; set; }
     public DbSet<Analytic> Analytics { get; set; }
     public DbSet<Message> Messages { get; set; }
@@ -272,17 +272,20 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
                 .HasForeignKey(t => t.NoteId);
             entity.HasOne(t => t.Task)
                 .WithMany(n => n.TaskNotes)
-                .HasForeignKey(t => t.TaskId);
+                .HasForeignKey(t => t.TaskId)
+                .HasPrincipalKey(t => t.Id);
         });
         builder.Entity<LeadNotes>(entity =>
         {
             entity.HasKey(e => new { e.Id, e.LeadId, e.NoteId });
             entity.HasOne(n => n.Note)
                 .WithMany(n => n.LeadNotes)
-                .HasForeignKey(n => n.NoteId);
+                .HasForeignKey(n => n.NoteId)
+                .HasPrincipalKey(t => t.Id);
             entity.HasOne(n => n.Lead)
                 .WithMany(n => n.LeadNotes)
-                .HasForeignKey(n => n.LeadId);
+                .HasForeignKey(n => n.LeadId)
+                .HasPrincipalKey(e => e.Id);
         });
         builder.Entity<ContactNotes>(entity =>
         {
@@ -292,7 +295,8 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
                 .HasForeignKey(n => n.NoteId);
             entity.HasOne(n => n.Contact)
                 .WithMany(n => n.ContactNotes)
-                .HasForeignKey(n => n.ContactId);
+                .HasForeignKey(n => n.ContactId)
+                .HasPrincipalKey(c => c.Id);
         });
         builder.Entity<CompanyNotes>(entity =>
         {
@@ -302,7 +306,8 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
                 .HasForeignKey(n => n.NoteId);
             entity.HasOne(n => n.Company)
                 .WithMany(n => n.CompanyNotes)
-                .HasForeignKey(n => n.CompanyId);
+                .HasForeignKey(n => n.CompanyId)
+                .HasPrincipalKey(c => c.Id);
         });
         builder.Entity<CampaignNotes>(entity =>
         {
@@ -312,7 +317,8 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
                 .HasForeignKey(n => n.NoteId);
             entity.HasOne(n => n.Campaign)
                 .WithMany(n => n.CampaignNotes)
-                .HasForeignKey(n => n.CampaignId);
+                .HasForeignKey(n => n.CampaignId)
+                .HasPrincipalKey(m => m.Id);
         });
         builder.Entity<JobNotes>(entity =>
         {
@@ -322,7 +328,8 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
                 .HasForeignKey(n => n.NoteId);
             entity.HasOne(n => n.Job)
                 .WithMany(n => n.JobNotes)
-                .HasForeignKey(n => n.JobId);
+                .HasForeignKey(n => n.JobId)
+                .HasPrincipalKey(m => m.Id);
         });
     }
 }

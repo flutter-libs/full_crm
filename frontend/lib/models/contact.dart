@@ -1,6 +1,7 @@
 import 'package:frontend/models/User.dart';
 import 'package:frontend/models/campaign.dart';
 import 'package:frontend/models/company.dart';
+import 'package:frontend/models/contact_notes.dart';
 import 'package:frontend/models/job.dart';
 import 'package:frontend/models/meeting.dart';
 import 'package:frontend/models/tasks.dart';
@@ -19,7 +20,6 @@ class Contact {
   String? state;
   String? zipCode;
   String? country;
-  String? notes;
   DateTime? dateCreated;
   DateTime? dateUpdated;
   String? imageUrl;
@@ -31,6 +31,7 @@ class Contact {
   List<Campaign>? campaigns;
   List<Tasks>? tasks;
   List<Meeting>? meetings;
+  List<ContactNotes>? contactNotes;
 
   Contact({
     this.id,
@@ -46,7 +47,6 @@ class Contact {
     this.state,
     this.zipCode,
     this.country,
-    this.notes,
     this.dateCreated,
     this.dateUpdated,
     this.imageUrl,
@@ -58,6 +58,7 @@ class Contact {
     this.campaigns,
     this.tasks,
     this.meetings,
+    this.contactNotes,
   });
 
   factory Contact.fromJson(Map<String, dynamic> json) {
@@ -75,7 +76,6 @@ class Contact {
       state: json['state'],
       zipCode: json['zipCode'],
       country: json['country'],
-      notes: json['notes'],
       dateCreated: DateTime.parse(json['dateCreated']),
       dateUpdated: json['dateUpdated'] != null
           ? DateTime.parse(json['dateUpdated'])
@@ -92,6 +92,8 @@ class Contact {
       jobs: (json['jobs'] as List?)
           ?.map((item) => Job.fromJson(item))
           .toList(),
+      contactNotes: (json['contactNotes'] as List?)
+          ?.map((item) => ContactNotes.fromJson(item)).toList(),
       campaigns: (json['campaigns'] as List?)
           ?.map((item) => Campaign.fromJson(item))
           .toList(),
@@ -119,7 +121,6 @@ class Contact {
       'state': state,
       'zipCode': zipCode,
       'country': country,
-      'notes': notes,
       'dateCreated': dateCreated?.toIso8601String(),
       'dateUpdated': dateUpdated?.toIso8601String(),
       'imageUrl': imageUrl,
@@ -131,6 +132,7 @@ class Contact {
       'campaigns': campaigns?.map((e) => e.toJson()).toList(),
       'tasks': tasks?.map((e) => e.toJson()).toList(),
       'meetings': meetings?.map((e) => e.toJson()).toList(),
+      'contactNotes': contactNotes?.map((e) => e.toJson()).toList(),
     };
   }
 }

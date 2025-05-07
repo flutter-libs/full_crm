@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:frontend/models/lead.dart';
 import 'package:frontend/screens/lead/lead_list_screen.dart';
 import 'package:frontend/widgets/custom_app_bar.dart';
+import 'package:frontend/widgets/side_nav_drawer.dart';
 import 'package:frontend/widgets/toast_alerts.dart' as alert;
 
 class LeadUpdateScreen extends StatefulWidget {
@@ -105,7 +106,8 @@ class _LeadUpdateScreenState extends State<LeadUpdateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Update Lead: ${_lead.leadName}', showBackButton: false),
+      appBar: CustomAppBar(title: 'Update Lead: ${_lead.leadName}'),
+      drawer: SideNavDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(

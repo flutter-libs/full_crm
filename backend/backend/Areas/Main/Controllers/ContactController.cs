@@ -1,4 +1,5 @@
 using backend.Areas.Main.Models;
+using backend.Areas.Main.Models.ViewModels;
 using backend.Areas.Main.Services;
 using backend.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -55,28 +56,52 @@ namespace backend.Areas.Main.Controllers;
 
         // POST: api/Contact
         [HttpPost]
-        public async Task<ActionResult> CreateContact([FromBody] Contact contact)
+        public async Task<ActionResult<Contact>> CreateContact([FromBody] AddContactViewModel contact)
         {
             if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
-
-            await _contactRepository.AddContactAsync(contact);
-            return CreatedAtAction(nameof(GetContactById), new { id = contact.Id }, contact);
+            }
+            try
+            {
+                var contacts = await _contactRepository.AddContactAsync(contact);
+                return Ok(contacts);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         // PUT: api/Contact/{id}
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateContact(int id, [FromBody] Contact contact)
+        public async Task<ActionResult<Contact>> UpdateContact(int id, [FromBody] UpdateContactViewModel contact)
         {
-            if (id != contact.Id)
-                return BadRequest("Contact ID mismatch.");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            var existingContact = await _contactRepository.GetContactByIdAsync(id);
-            if (existingContact == null)
-                return NotFound();
-
-            await _contactRepository.UpdateContactAsync(contact);
-            return NoContent();
+            try
+            {
+                var contacts = await _contactRepository.UpdateContactAsync(id, contact);
+                return Ok(contacts);
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                _logger.LogInformation($"Updating Contact with id {id} failed", ex);
+                return BadRequest($"Failed to update Contact with id - DbUpdateConcurrencyException {id}");
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogInformation($"Updating Contact with id {id} failed", ex);
+                return BadRequest($"Failed to update Contact with id - DbUpdateException {id}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation($"Updating Contact with id {id} failed", ex);
+                return BadRequest($"Failed to update Contact with id - Exception {id}");
+            }
         }
 
         // DELETE: api/Contact/{id}
@@ -98,21 +123,21 @@ namespace backend.Areas.Main.Controllers;
             return Ok(contacts);
         }
 
-        [HttpGet("contactNotes")]
+        [HttpGet("notes")]
         public async Task<ActionResult<IEnumerable<ContactNotes>>> GetContactNotes()
         {
             var contactNotes = await _contactNotesRepository.GetAllContactNotesAsync();
             return Ok(contactNotes);
         }
 
-        [HttpGet("contactNotes/{id}")]
+        [HttpGet("notes/{id}")]
         public async Task<ActionResult<ContactNotes>> GetContactNotes(int id)
         {
             var contactNotes = await _contactNotesRepository.GetContactNoteById(id);
             return Ok(contactNotes);
         }
 
-        [HttpPut("contactNotes/{id}")]
+        [HttpPut("notes/{id}")]
         public async Task<ActionResult> UpdateContactNotes(int id, [FromBody] ContactNotes notes)
         {
             if (!ModelState.IsValid)
@@ -126,22 +151,22 @@ namespace backend.Areas.Main.Controllers;
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                _logger.LogInformation($"Updating Campaign Note with id {id} failed", ex);
-                return BadRequest($"Failed to update Campaign Note with id - DbUpdateConcurrencyException {id}");
+                _logger.LogInformation($"Updating Contact Note with id {id} failed", ex);
+                return BadRequest($"Failed to update Contact Note with id - DbUpdateConcurrencyException {id}");
             }
             catch (DbUpdateException ex)
             {
-                _logger.LogInformation($"Updating Campaign Note with id {id} failed", ex);
-                return BadRequest($"Failed to update Campaign Note with id - DbUpdateException {id}");
+                _logger.LogInformation($"Updating Contact Note with id {id} failed", ex);
+                return BadRequest($"Failed to update Contact Note with id - DbUpdateException {id}");
             }
             catch (Exception ex)
             {
-                _logger.LogInformation($"Updating Campaign Note with id {id} failed", ex);
-                return BadRequest($"Failed to update Campaign Note with id - Exception {id}");
+                _logger.LogInformation($"Updating Contact Note with id {id} failed", ex);
+                return BadRequest($"Failed to update Contact Note with id - Exception {id}");
             }
         }
 
-        [HttpPost("contactNotes")]
+        [HttpPost("notes")]
         public async Task<ActionResult<ContactNotes>> CreateContactNotes([FromBody] ContactNotes notes)
         {
             if (!ModelState.IsValid)
@@ -160,14 +185,14 @@ namespace backend.Areas.Main.Controllers;
             }
         }
 
-        [HttpDelete("contactNotes/{id}")]
+        [HttpDelete("notes/{id}")]
         public async Task<ActionResult> DeleteContactNotes(int id)
         {
             await _contactNotesRepository.DeleteAsync(id);
             return Ok("Notes deleted.");
         }
 
-        [HttpGet("contactNotes/count")]
+        [HttpGet("notes/count")]
         public async Task<ActionResult<int>> GetContactNotesCount()
         {
             return Ok(await _contactNotesRepository.CountAsync());

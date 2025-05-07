@@ -109,6 +109,7 @@ public class Program
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IRoleRepository, RoleRepository>();
         builder.Services.AddScoped<IEmailRepository, EmailRepository>();
+        builder.Services.AddScoped<ILeadRepository, LeadRepository>();
         builder.Services.AddScoped<IMessageRepository, MessageRepository>();
         builder.Services.AddScoped<IMessageUserRepository, MessageUsersRepository>();
         builder.Services.AddScoped<IMeetingRepository, MeetingRepository>();
@@ -127,7 +128,11 @@ public class Program
         
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        builder.Services.AddControllers();
+        builder.Services.AddControllers().AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+            options.JsonSerializerOptions.WriteIndented = true;
+        });
         
         var app = builder.Build();
         if (app.Environment.IsDevelopment())

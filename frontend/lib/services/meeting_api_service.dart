@@ -7,7 +7,6 @@ import 'package:frontend/models/user_meeting.dart';
 class MeetingAPIService {
   final Dio _dio = Dio();
   final String baseUrl = "http://localhost:5244/api/Communication/Meeting";
-  get context => BuildContext;
   // Get all meetings
   Future<List<UserMeeting>> getMeetings() async {
     try {

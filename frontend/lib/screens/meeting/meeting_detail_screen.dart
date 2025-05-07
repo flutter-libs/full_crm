@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/models/user_meeting.dart';
 import 'package:frontend/services/meeting_api_service.dart';
 import 'package:frontend/widgets/custom_app_bar.dart';
+import 'package:frontend/widgets/side_nav_drawer.dart';
 
 
 class MeetingDetailScreen extends StatelessWidget {
@@ -13,7 +14,8 @@ class MeetingDetailScreen extends StatelessWidget {
     final MeetingAPIService _service = MeetingAPIService();
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'CRM: Meeting Detail', showBackButton: false),
+      appBar: CustomAppBar(title: 'CRM: Meeting Detail'),
+      drawer: SideNavDrawer(),
       body: FutureBuilder<UserMeeting>(
         future: _service.getMeetingById(meetingId!),
         builder: (context, snapshot) {

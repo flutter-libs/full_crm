@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/screens/campaign/campaign_create_screen.dart';
+import 'package:frontend/screens/campaign/campaign_detail_screen.dart';
+import 'package:frontend/screens/campaign/campaign_list_screen.dart';
+import 'package:frontend/screens/campaign/campaign_update_screen.dart';
+import 'package:frontend/screens/contact/contact_create_screen.dart';
+import 'package:frontend/screens/contact/contact_detail_screen.dart';
+import 'package:frontend/screens/contact/contact_list_screen.dart';
+import 'package:frontend/screens/contact/contact_update_screen.dart';
 import 'package:frontend/screens/dashboard_screen.dart';
 import 'package:frontend/screens/lead/lead_create_screen.dart';
 import 'package:frontend/screens/lead/lead_detail_screen.dart';
@@ -62,6 +70,22 @@ class CRMFrontend extends StatelessWidget {
                 leadId: ModalRoute.of(context)?.settings.arguments as int?
             ),
             LeadCreateScreen.id: (context) => LeadCreateScreen(),
+            CampaignCreateScreen.id: (context) => CampaignCreateScreen(),
+            CampaignListScreen.id: (context) => CampaignListScreen(),
+            CampaignDetailScreen.id:(context) => CampaignDetailScreen(
+                campaignId: ModalRoute.of(context)?.settings.arguments as int?
+            ),
+            CampaignUpdateScreen.id: (context) => CampaignUpdateScreen(
+                campaignId: ModalRoute.of(context)?.settings.arguments as int?
+            ),
+            ContactListScreen.id: (context) => ContactListScreen(),
+            ContactCreateScreen.id: (context) => ContactCreateScreen(),
+            ContactDetailScreen.id: (context) => ContactDetailScreen(
+              contactId: ModalRoute.of(context)?.settings.arguments as int?
+            ),
+            ContactUpdateScreen.id: (context) => ContactUpdateScreen(
+                contactId: ModalRoute.of(context)?.settings.arguments as int?
+            ),
           },
           debugShowCheckedModeBanner: false,
         )

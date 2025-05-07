@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:frontend/models/user.dart';
+import 'package:frontend/models/user_notes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:frontend/widgets/toast_alerts.dart' as alert;
 
@@ -8,7 +9,7 @@ import 'package:frontend/widgets/toast_alerts.dart' as alert;
 
 class UserAPIService {
   final Dio _dio = Dio(BaseOptions(baseUrl: 'http://localhost:5244/api/Identity/User'));
-
+  final Dio _userNoteDio = Dio(BaseOptions(baseUrl: 'http://localhost:5244/api/Main/Note/userNotes'));
   get context => BuildContext;
 
   Future<bool> register(User user) async {
@@ -89,6 +90,57 @@ class UserAPIService {
   Future<int> countAllUsers() async {
     try {
       final response = await _dio.get('/count');
+      return response.data['count'] ?? 0;
+    } catch (e) {
+      alert.showErrorToast(context, '$e', 'Could not retrieve the count of users.');
+      return 0;
+    }
+  }
+
+
+  Future<List<UserNotes>> getAllUserNotes() async {
+    try {
+      final response = await _userNoteDio.get('/');
+      return (response.data as List).map((json) => UserNotes.fromJson(json)).toList();
+    } catch (e) {
+      alert.showErrorToast(context, '$e', 'Could not retrieve all users.');
+      return [];
+    }
+  }
+
+  Future<UserNotes?> getUserNoteById(String id) async {
+    try {
+      final response = await _userNoteDio.get('/$id');
+      return UserNotes.fromJson(response.data);
+    } catch (e) {
+      alert.showErrorToast(context, '$e', 'Could not get the user by id: $id');
+      return null;
+    }
+  }
+
+  Future<bool> updateUserNote(String id, UserNotes note) async {
+    try {
+      final response = await _userNoteDio.put('/$id', data: note.toJson());
+      return response.statusCode == 200;
+    } catch (e) {
+      alert.showErrorToast(context, '$e', 'Could not update the user.');
+      return false;
+    }
+  }
+
+  Future<bool> deleteUserNote(String id) async {
+    try {
+      final response = await _userNoteDio.delete('/$id');
+      return response.statusCode == 200;
+    } catch (e) {
+      alert.showErrorToast(context, '$e', 'Could not delete the user.');
+      return false;
+    }
+  }
+
+  Future<int> countAllUserNotes() async {
+    try {
+      final response = await _userNoteDio.get('/count');
       return response.data['count'] ?? 0;
     } catch (e) {
       alert.showErrorToast(context, '$e', 'Could not retrieve the count of users.');

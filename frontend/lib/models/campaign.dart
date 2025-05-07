@@ -1,4 +1,5 @@
 import 'package:frontend/models/User.dart';
+import 'package:frontend/models/campaign_notes.dart';
 import 'package:frontend/models/contact.dart';
 import 'package:frontend/models/lead.dart';
 import 'package:frontend/models/tasks.dart';
@@ -17,7 +18,6 @@ class Campaign {
   int? actualResponses;
   double? expectedSales;
   double? actualSales;
-  String? notes;
   DateTime? dateCreated;
   DateTime? dateUpdated;
   String? createdByUserId;
@@ -25,6 +25,7 @@ class Campaign {
   List<Lead>? leads;
   List<Contact>? contacts;
   List<Tasks>? tasks;
+  List<CampaignNotes>? campaignNotes;
 
   Campaign({
     this.id,
@@ -40,7 +41,6 @@ class Campaign {
     this.actualResponses,
     this.expectedSales,
     this.actualSales,
-    this.notes,
     this.dateCreated,
     this.dateUpdated,
     this.createdByUserId,
@@ -48,6 +48,7 @@ class Campaign {
     this.leads,
     this.contacts,
     this.tasks,
+    this.campaignNotes,
   });
 
   factory Campaign.fromJson(Map<String, dynamic> json) {
@@ -65,7 +66,9 @@ class Campaign {
       actualResponses: json['actualResponses'],
       expectedSales: json['expectedSales']?.toDouble(),
       actualSales: json['actualSales']?.toDouble(),
-      notes: json['notes'],
+      campaignNotes: (json['campaignNotes'] as List?)
+          ?.map((item) => CampaignNotes.fromJson(item))
+          .toList(),
       dateCreated: DateTime.parse(json['dateCreated']),
       dateUpdated: json['dateUpdated'] != null
           ? DateTime.parse(json['dateUpdated'])
@@ -101,10 +104,10 @@ class Campaign {
       'actualResponses': actualResponses,
       'expectedSales': expectedSales,
       'actualSales': actualSales,
-      'notes': notes,
       'dateCreated': dateCreated?.toIso8601String(),
       'dateUpdated': dateUpdated?.toIso8601String(),
       'createdByUserId': createdByUserId,
+      'campaignNotes': campaignNotes?.map((e) => e.toJson()).toList(),
       'createdByUser': createdByUser?.toJson(),
       'leads': leads?.map((e) => e.toJson()).toList(),
       'contacts': contacts?.map((e) => e.toJson()).toList(),

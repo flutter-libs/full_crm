@@ -57,7 +57,7 @@ class _LeadCreateScreenState extends State<LeadCreateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'CRM: Create Lead', showBackButton: false),
+      appBar: CustomAppBar(title: 'CRM: Create Lead'),
       drawer: SideNavDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

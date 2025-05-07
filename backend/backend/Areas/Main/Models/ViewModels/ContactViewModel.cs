@@ -5,7 +5,7 @@ using backend.Areas.Identity.Models;
 
 namespace backend.Areas.Main.Models.ViewModels;
 
-public class AddContactViewModel : Contact
+public class AddContactViewModel
 {
     [StringLength(100)]
     public string FirstName { get; set; }
@@ -48,15 +48,10 @@ public class AddContactViewModel : Contact
     public string Notes { get; set; }
 
     public DateTime DateCreated { get; set; } = DateTime.UtcNow;
-        
-    public DateTime? DateUpdated { get; set; }
     
-    [ForeignKey(nameof(OwnerUserId))]
     public string? OwnerUserId { get; set; }
-    
-    
-    public virtual User? OwnerUser { get; set; }
-    public IFormFile? ImageUrl { get; set; }
+
+    public string? ImageUrl { get; set; }
 }
 
 public class UpdateContactViewModel : Contact
@@ -101,13 +96,6 @@ public class UpdateContactViewModel : Contact
 
     public string Notes { get; set; }
 
-    public DateTime DateCreated { get; set; } = DateTime.UtcNow;
-        
-    public DateTime? DateUpdated { get; set; }
-    [ForeignKey(nameof(OwnerUserId))]
-    public string? OwnerUserId { get; set; }
-    
-    
-    public virtual User? OwnerUser { get; set; }
-    public IFormFile? ImageUrl { get; set; }
+    public DateTime? DateUpdated { get; set; } = DateTime.Now;
+    public string? ImageUrl { get; set; }
 }

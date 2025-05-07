@@ -3,6 +3,7 @@ import 'package:frontend/models/lead.dart';
 import 'package:frontend/screens/lead/lead_detail_screen.dart';
 import 'package:frontend/services/lead_api_service.dart';
 import 'package:frontend/widgets/custom_app_bar.dart';
+import 'package:frontend/widgets/side_nav_drawer.dart';
 
 class LeadListScreen extends StatefulWidget {
   const LeadListScreen({super.key});
@@ -25,7 +26,8 @@ class _LeadListScreenState extends State<LeadListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'CRM: Lead List', showBackButton: false),
+      appBar: CustomAppBar(title: 'CRM: Lead List'),
+      drawer: SideNavDrawer(),
       body: FutureBuilder(
         future: _leadsFuture,
         builder: (context, snapshot) {

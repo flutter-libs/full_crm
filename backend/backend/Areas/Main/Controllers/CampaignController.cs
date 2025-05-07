@@ -21,6 +21,7 @@ public class CampaignController : ControllerBase
         _repository = repository;
         _context = context;
         _logger = logger;
+        _campaignNotesRepository = campaignNotesRepository;
     }
 
     [HttpGet]
@@ -40,14 +41,14 @@ public class CampaignController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Campaign>> Create(Campaign campaign)
+    public async Task<ActionResult<Campaign>> Create([FromBody] Campaign campaign)
     {
         var created = await _repository.AddAsync(campaign);
         return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult> UpdateCampaign(int id, Campaign campaign)
+    public async Task<ActionResult> UpdateCampaign(int id, [FromBody] Campaign campaign)
     {
         if (id != campaign.Id)
             return BadRequest();
@@ -144,7 +145,7 @@ public class CampaignController : ControllerBase
         return NoContent();
     }
 
-    [HttpGet("notes/campaignNoteCount")]
+    [HttpGet("notes/count")]
     public async Task<ActionResult<int>> GetCampaignNoteCount()
     {
         var campaignNoteCount = await _campaignNotesRepository.CountAsync();

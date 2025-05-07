@@ -64,7 +64,7 @@ public class UserRepository : IUserRepository
         // This is a *basic* JWT creation example.
         // You can customize claims, expiry, secret key, etc.
         var tokenHandler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
-        var key = System.Text.Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
+        var key = System.Text.Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!);
 
         var tokenDescriptor = new Microsoft.IdentityModel.Tokens.SecurityTokenDescriptor
         {
@@ -86,12 +86,24 @@ public class UserRepository : IUserRepository
 
     public async Task<IEnumerable<User>> GetAllUsersAsync()
     {
-        return await _userManager.Users.ToListAsync();
+        var users =  await _context.Users
+            .Include(x => x.UserRoles)!
+            .ThenInclude(xu => xu.Role)
+            .ToListAsync();
+        return users;
     }
 
     public async Task<User?> GetUserByIdAsync(string userId)
     {
-        return await _userManager.FindByIdAsync(userId);
+        var user =  await _context.Users
+            .Include(x => x.UserRoles)!
+            .ThenInclude(xu => xu.Role)
+            .FirstOrDefaultAsync(xc => xc.Id == userId);
+        if (user == null)
+        {
+            throw new NullReferenceException("User not found");
+        }
+        return user;
     }
 
     public async Task<IdentityResult> UpdateUserAsync(UpdateUserViewModel model)

@@ -4,6 +4,7 @@ import 'package:frontend/services/meeting_api_service.dart';
 import 'package:frontend/models/user_meeting.dart';
 import 'package:frontend/services/meeting_api_service.dart';
 import 'package:frontend/widgets/custom_app_bar.dart';
+import 'package:frontend/widgets/side_nav_drawer.dart';
 import 'package:frontend/widgets/toast_alerts.dart' as alert;
 
 class MeetingListScreen extends StatefulWidget {
@@ -26,7 +27,8 @@ class _MeetingListScreenState extends State<MeetingListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'CRM: Meeting List', showBackButton: false),
+      appBar: CustomAppBar(title: 'CRM: Meeting List'),
+      drawer: SideNavDrawer(),
       body: FutureBuilder<List<UserMeeting>>(
         future: _futureMeetings,
         builder: (context, snapshot) {

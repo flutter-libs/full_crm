@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/widgets/custom_app_bar.dart';
 import 'package:frontend/widgets/side_nav_drawer.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -7,9 +8,7 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dashboard'),
-      ),
+      appBar: CustomAppBar(title: 'Dashboard'),
       drawer: SideNavDrawer(),
       body: SingleChildScrollView(
         child: Column(

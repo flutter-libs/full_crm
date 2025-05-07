@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/screens/campaign/campaign_create_screen.dart';
+import 'package:frontend/screens/campaign/campaign_list_screen.dart';
+import 'package:frontend/screens/contact/contact_create_screen.dart';
+import 'package:frontend/screens/contact/contact_list_screen.dart';
 import 'package:frontend/screens/lead/lead_create_screen.dart';
 import 'package:frontend/screens/lead/lead_list_screen.dart';
 import 'package:frontend/screens/login_screen.dart';
@@ -12,6 +16,7 @@ class SideNavDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      elevation: 8.0,
       child: ListView(
         children: [
           // Drawer Header
@@ -60,17 +65,34 @@ class SideNavDrawer extends StatelessWidget {
               ),
             ],
           ),
-
-          // Dropdown Section for Campaigns
           ExpansionTile(
             leading: Icon(Icons.campaign),
+            title: Text('Campaigns'),
+            children: [
+              ListTile(
+                leading: Icon(Icons.list),
+                title: Text('All Campaigns'),
+                onTap: () => Navigator.pushNamed(context, CampaignListScreen.id),
+              ),
+              ListTile(
+                leading: Icon(Icons.add),
+                title: Text('Add Campaign'),
+                onTap: () => Navigator.pushNamed(context, CampaignCreateScreen.id),
+              ),
+            ],
+          ),
+          // Dropdown Section for Campaigns
+          ExpansionTile(
+            leading: Icon(Icons.meeting_room),
             title: Text('Meetings'),
             children: [
               ListTile(
+                leading: Icon(Icons.list),
                 title: Text('All Meetings'),
                 onTap: () => Navigator.pushNamed(context, MeetingListScreen.id),
               ),
               ListTile(
+                leading: Icon(Icons.add),
                 title: Text('Add Meeting'),
                 onTap:
                     () => Navigator.pushNamed(context, MeetingCreateScreen.id),
@@ -78,11 +100,22 @@ class SideNavDrawer extends StatelessWidget {
             ],
           ),
 
-          // Settings
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () => Navigator.pushNamed(context, '/settings'),
+          ExpansionTile(
+            leading: Icon(Icons.contact_page_outlined),
+            title: Text('Contacts'),
+            children: [
+              ListTile(
+                leading: Icon(Icons.list),
+                title: Text('All Contacts'),
+                onTap: () => Navigator.pushNamed(context, ContactListScreen.id),
+              ),
+              ListTile(
+                leading: Icon(Icons.add),
+                title: Text('Add Contact'),
+                onTap:
+                    () => Navigator.pushNamed(context, ContactCreateScreen.id),
+              ),
+            ],
           ),
         ],
       ),

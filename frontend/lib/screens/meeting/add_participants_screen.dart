@@ -3,6 +3,7 @@ import 'package:frontend/models/user.dart';
 import 'package:frontend/models/user_meeting.dart';
 import 'package:frontend/services/meeting_api_service.dart';
 import 'package:frontend/widgets/custom_app_bar.dart';
+import 'package:frontend/widgets/side_nav_drawer.dart';
 import 'package:frontend/widgets/toast_alerts.dart' as alert;
 
 class AddParticipantsScreen extends StatefulWidget {
@@ -67,7 +68,8 @@ class _AddParticipantsScreenState extends State<AddParticipantsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'CRM: Add Participants', showBackButton: false),
+      appBar: CustomAppBar(title: 'CRM: Add Participants'),
+      drawer: SideNavDrawer(),
       body: Column(
         children: [
           Expanded(

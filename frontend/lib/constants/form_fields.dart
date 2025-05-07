@@ -164,3 +164,30 @@ var kTextInputZipCodeStyle = InputDecoration(
     borderSide: BorderSide(color: Colors.red),
   ),
 );
+
+InputDecoration showFormFieldStyle(String label) {
+  var kTextFormFieldStyle = InputDecoration(
+    label: Text(
+      label,
+      style: TextStyle(
+        color: Colors.white,
+        fontFamily: 'Ubuntu',
+        fontWeight: FontWeight.bold,
+        fontSize: 14.0,
+      ),
+    ),
+    enabledBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: Colors.cyan),
+    ),
+    focusedBorder: UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.blue,
+        width: 2,
+      ),
+    ),
+    errorBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: Colors.red),
+    ),
+  );
+  return kTextFormFieldStyle;
+}

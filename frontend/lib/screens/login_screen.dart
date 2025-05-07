@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
     double widthForm = screenWidth > 600 ? 600 : 300;
     double sepWidth = widthForm == 600 ? 230 : 110;
     return Scaffold(
-      appBar: CustomAppBar(title: 'CRM: Sign In', showBackButton: false),
+      appBar: CustomAppBar(title: 'CRM: Sign In'),
       drawer: SideNavDrawer(),
       body: Center(
         child: SizedBox(

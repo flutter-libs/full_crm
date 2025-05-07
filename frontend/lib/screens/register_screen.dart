@@ -134,7 +134,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     double widthForm = screenWidth > 600 ? 600 : 300;
     double sepWidth = widthForm == 350 ? 200 : 100;
     return Scaffold(
-      appBar: CustomAppBar(title: 'CRM: Sign Up', showBackButton: false),
+      appBar: CustomAppBar(title: 'CRM: Sign Up'),
       drawer: SideNavDrawer(),
       body: Center(
         child: SizedBox(

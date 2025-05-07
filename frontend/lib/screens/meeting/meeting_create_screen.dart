@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/services/meeting_api_service.dart';
 import 'package:frontend/widgets/custom_app_bar.dart';
+import 'package:frontend/widgets/side_nav_drawer.dart';
 import 'package:frontend/widgets/toast_alerts.dart' as alert;
 
 class MeetingCreateScreen extends StatefulWidget {
@@ -54,7 +55,8 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'CRM: Create Meeting', showBackButton: false),
+      appBar: CustomAppBar(title: 'CRM: Create Meeting'),
+      drawer: SideNavDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(

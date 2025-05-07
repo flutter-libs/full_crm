@@ -1,4 +1,5 @@
 using backend.Areas.Main.Models;
+using backend.Areas.Main.Models.ViewModels;
 using backend.Areas.Main.Services;
 using backend.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +15,13 @@ public class LeadController : ControllerBase
     private readonly ApplicationDbContext _context;
     private readonly ILogger<LeadController> _logger;
     private readonly ILeadRepository _leadRepository;
-    public LeadController(ApplicationDbContext context, ILogger<LeadController> logger, ILeadRepository leadRepository)
+    private readonly ILeadNotesRepository _leadNotesRepository;
+    public LeadController(ApplicationDbContext context, ILogger<LeadController> logger, ILeadRepository leadRepository, ILeadNotesRepository leadNotesRepository)
     {
         _context = context;
         _logger = logger;
         _leadRepository = leadRepository;
+        _leadNotesRepository = leadNotesRepository;
     }
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Lead>>> GetLeads()
@@ -30,15 +33,11 @@ public class LeadController : ControllerBase
     public async Task<ActionResult<Lead>> GetLead(int id)
     {
         var lead = await _leadRepository.GetLeadByIdAsync(id);
-        if (lead == null)
-        {
-            return NotFound("Lead not found");
-        }
         return Ok(lead);
     }
 
     [HttpPost]
-    public async Task<ActionResult<Lead>> CreateLead(Lead lead)
+    public async Task<ActionResult<Lead>> CreateLead([FromBody] AddLeadViewModel lead)
     {
         if (!ModelState.IsValid)
         {
@@ -47,9 +46,9 @@ public class LeadController : ControllerBase
 
         try
         {
-            await _leadRepository.AddLeadAsync(lead);
+            var leads = await _leadRepository.AddLeadAsync(lead);
             _logger.LogInformation("Created Lead");
-            return Ok("Lead created");
+            return Ok(leads);
         }
         catch (Exception ex)
         {
@@ -58,11 +57,11 @@ public class LeadController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<Lead>> UpdateLead(int id, Lead lead)
+    public async Task<ActionResult<Lead>> UpdateLead(int id, [FromBody] UpdateLeadViewModel lead)
     {
         try
         {
-            await _leadRepository.UpdateLeadAsync(lead);
+            await _leadRepository.UpdateLeadAsync(id, lead);
             _logger.LogInformation("Updated Lead");
             return Ok("Lead updated");
         }
@@ -104,5 +103,80 @@ public class LeadController : ControllerBase
     {
         var leadCount = await _leadRepository.CountLeadsAsync();
         return Ok(leadCount);
+    }
+
+    [HttpGet("notes")]
+    public async Task<ActionResult<IEnumerable<LeadNotes>>> ListLeadNotes()
+    {
+        return Ok(await _leadNotesRepository.GetAllLeadNotesAsync());
+    }
+
+    [HttpGet("notes/{id}")]
+    public async Task<ActionResult<LeadNotes>> GetLeadNotes(int id)
+    {
+        var leadNote = await _leadNotesRepository.GetLeadNoteById(id);
+        return Ok(leadNote);
+    }
+
+    [HttpPost("notes")]
+    public async Task<ActionResult> CreateLeadNotes([FromBody] LeadNotes leadNotes)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        try
+        {
+            await _leadNotesRepository.AddAsync(leadNotes);
+            return Ok("Lead note created");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"Failed to add lead notes: {ex.Message}");
+        }
+    }
+
+    [HttpPut("notes/{id}")]
+    public async Task<ActionResult> UpdateLeadNotes(int id, [FromBody] LeadNotes leadNotes)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        try
+        {
+            await _leadNotesRepository.UpdateAsync(id, leadNotes);
+            return Ok("Lead note updated");
+        }
+        catch (DbUpdateConcurrencyException ex)
+        {
+            _logger.LogInformation($"Updating Lead Note with id {id} failed", ex);
+            return BadRequest($"Failed to update Lead Note with id - DbUpdateConcurrencyException {id}");
+        }
+        catch (DbUpdateException ex)
+        {
+            _logger.LogInformation($"Updating Lead Note with id {id} failed", ex);
+            return BadRequest($"Failed to update Lead Note with id - DbUpdateException {id}");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogInformation($"Updating Lead Note with id {id} failed", ex);
+            return BadRequest($"Failed to update Lead Note with id - Exception {id}");
+        }
+    }
+
+    [HttpDelete("notes/{id}")]
+    public async Task<ActionResult> DeleteLeadNotes(int id)
+    {
+        await _leadNotesRepository.DeleteAsync(id);
+        return Ok("Lead note deleted");
+    }
+
+    [HttpGet("notes/count")]
+    public async Task<ActionResult<int>> GetNotesCount()
+    {
+        return Ok(await _leadNotesRepository.CountAsync());
     }
 }
