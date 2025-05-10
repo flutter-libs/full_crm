@@ -35,6 +35,10 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
     public DbSet<CampaignNotes> CampaignNotes { get; set; }
     public DbSet<CompanyNotes> CompanyNotes { get; set; }
     public DbSet<JobNotes> JobNotes { get; set; }
+    public DbSet<JobTask> JobTasks { get; set; }
+    public DbSet<LeadTask> LeadTasks { get; set; }
+    public DbSet<CampaignTask> CampaignTasks { get; set; }
+    public DbSet<CompanyTask> CompanyTasks { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -330,6 +334,54 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
                 .WithMany(n => n.JobNotes)
                 .HasForeignKey(n => n.JobId)
                 .HasPrincipalKey(m => m.Id);
+        });
+        builder.Entity<JobTask>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.JobId, e.TaskId });
+            entity.HasOne(n => n.Job)
+                .WithMany(n => n.JobTasks)
+                .HasForeignKey(n => n.JobId)
+                .HasPrincipalKey(c => c.Id);
+            entity.HasOne(g => g.Tasks)
+                .WithMany(n => n.JobTasks)
+                .HasForeignKey(n => n.TaskId)
+                .HasPrincipalKey(c => c.Id);
+        });
+        builder.Entity<LeadTask>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.LeadId, e.TaskId });
+            entity.HasOne(n => n.Lead)
+                .WithMany(n => n.LeadTasks)
+                .HasForeignKey(n => n.LeadId)
+                .HasPrincipalKey(c => c.Id);
+            entity.HasOne(n => n.Tasks)
+                .WithMany(n => n.LeadTasks)
+                .HasForeignKey(n => n.TaskId)
+                .HasPrincipalKey(c => c.Id);
+        });
+        builder.Entity<CampaignTask>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.CampaignId, e.TaskId });
+            entity.HasOne(n => n.Campaign)
+                .WithMany(n => n.CampaignTask)
+                .HasForeignKey(n => n.CampaignId)
+                .HasPrincipalKey(c => c.Id);
+            entity.HasOne(n => n.Tasks)
+                .WithMany(n => n.CampaignTasks)
+                .HasForeignKey(n => n.TaskId)
+                .HasPrincipalKey(c => c.Id);
+        });
+        builder.Entity<CompanyTask>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.CompanyId, e.TaskId });
+            entity.HasOne(n => n.Company)
+                .WithMany(n => n.CompanyTasks)
+                .HasForeignKey(n => n.CompanyId)
+                .HasPrincipalKey(c => c.Id);
+            entity.HasOne(n => n.Tasks)
+                .WithMany(n => n.CompanyTasks)
+                .HasForeignKey(n => n.TaskId)
+                .HasPrincipalKey(c => c.Id);
         });
     }
 }

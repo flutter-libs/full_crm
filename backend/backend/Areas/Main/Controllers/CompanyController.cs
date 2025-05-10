@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Areas.Main.Controllers;
 
-
 [ApiController]
 [Area("Main")]
 [Route("api/[area]/[controller]")]

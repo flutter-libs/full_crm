@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/constants/form_fields.dart';
 
 class USStateSelector extends StatefulWidget {
   const USStateSelector({super.key});
@@ -24,10 +25,7 @@ class _USStateSelectorState extends State<USStateSelector> {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-      decoration: InputDecoration(
-        labelText: 'Select State',
-        border: OutlineInputBorder(),
-      ),
+      decoration: showFormFieldStyle('Select State'),
       value: _selectedState,
       items: _states.map((state) {
         return DropdownMenuItem(

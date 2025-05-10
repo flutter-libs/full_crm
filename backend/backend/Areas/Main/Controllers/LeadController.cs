@@ -119,7 +119,7 @@ public class LeadController : ControllerBase
     }
 
     [HttpPost("notes")]
-    public async Task<ActionResult> CreateLeadNotes([FromBody] LeadNotes leadNotes)
+    public async Task<ActionResult> CreateLeadNotes([FromBody] AddLeadNoteViewModel leadNotes)
     {
         if (!ModelState.IsValid)
         {
@@ -138,7 +138,7 @@ public class LeadController : ControllerBase
     }
 
     [HttpPut("notes/{id}")]
-    public async Task<ActionResult> UpdateLeadNotes(int id, [FromBody] LeadNotes leadNotes)
+    public async Task<ActionResult> UpdateLeadNotes(int id, [FromBody] UpdateLeadNoteViewModel leadNotes)
     {
         if (!ModelState.IsValid)
         {

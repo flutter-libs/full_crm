@@ -4,7 +4,7 @@ import 'package:frontend/models/lead_notes.dart';
 
 class LeadApiService {
   final Dio _dio = Dio(BaseOptions(
-    baseUrl: 'http://localhost:5244/api/Main/Lead',
+    baseUrl: 'http://192.168.1.6:8000/api/Main/Lead',
     contentType: 'application/json',
   ));
 

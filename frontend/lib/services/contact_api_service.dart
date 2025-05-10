@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 
 class ContactApiService {
   final Dio _dio = Dio(BaseOptions(
-    baseUrl: 'http://localhost:5244/api/Main/Contact',
+    baseUrl: 'http://192.168.1.6:8000/api/Main/Contact',
     contentType: 'application/json',
   ));
 

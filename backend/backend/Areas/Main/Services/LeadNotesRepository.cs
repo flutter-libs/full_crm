@@ -1,5 +1,7 @@
 using backend.Areas.Main.Models;
+using backend.Areas.Main.Models.ViewModels;
 using backend.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Areas.Main.Services;
@@ -33,16 +35,16 @@ public class LeadNotesRepository : ILeadNotesRepository
         return leadNote;
     }
 
-    public async Task<LeadNotes> AddAsync(LeadNotes note)
+    public async Task<LeadNotes> AddAsync([FromBody] AddLeadNoteViewModel note)
     {
         var leadNote = new LeadNotes
         {
             LeadId = note.LeadId,
             Note = new Note
             {
-                Title = note.Note.Title,
-                Content = note.Note.Content,
-                Created = DateTime.Now,
+                Title = note.Title,
+                Content = note.Content,
+                Created = note.Created,
             }
         };
         _context.LeadNotes.Add(leadNote);
@@ -50,12 +52,12 @@ public class LeadNotesRepository : ILeadNotesRepository
         return leadNote;
     }
 
-    public async Task UpdateAsync(int id, LeadNotes note)
+    public async Task UpdateAsync(int id, [FromBody] UpdateLeadNoteViewModel note)
     {
         var leadNote = await GetLeadNoteById(id);
-        leadNote.Note.Title = note.Note.Title;
-        leadNote.Note.Content = note.Note.Content;
-        leadNote.Note.Updated = DateTime.Now;
+        leadNote.Note.Title = note.Title;
+        leadNote.Note.Content = note.Content;
+        leadNote.Note.Updated = note.Updated;
         _context.LeadNotes.Update(leadNote);
         await _context.SaveChangesAsync();
     }

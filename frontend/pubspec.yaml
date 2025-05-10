@@ -36,15 +36,16 @@ dependencies:
   cupertino_icons: ^1.0.8
   dio: ^5.8.0+1
   shared_preferences: ^2.5.3
-  path_provider: 
+  path_provider: ^2.1.5
   toastification: ^3.0.2
   intl: ^0.20.2
   window_manager: ^0.4.3
   json_annotation: ^4.9.0
   json_serializable: ^6.9.5
-  jwt_decode:
-  image_picker:
-  flutter_image_compress:
+  jwt_decode: ^0.3.1
+  image_picker: ^1.1.2
+  flutter_image_compress: ^2.4.0
+  http: ^1.4.0
 
 dev_dependencies:
   flutter_test:

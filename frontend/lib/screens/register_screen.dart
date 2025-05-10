@@ -7,6 +7,7 @@ import 'package:frontend/services/user_api_service.dart';
 import 'package:frontend/widgets/custom_app_bar.dart';
 import 'package:frontend/widgets/side_nav_drawer.dart';
 import 'package:frontend/widgets/toast_alerts.dart' as alert;
+import 'package:frontend/widgets/us_state_selector.dart';
 import 'package:intl/intl.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -24,9 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var _obscurePassword = true;
   var _obscureConfirmPassword = true;
   DateTime? _selectedDateOfBirth;
-  DateTime _dateCreated = DateTime.now();
 
-  // Controllers for form fields
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
@@ -36,43 +35,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _city = TextEditingController();
   final TextEditingController _state = TextEditingController();
   final TextEditingController _zipCode = TextEditingController();
-
-  void _register() async {
-    if (_formKey.currentState!.validate()) {
-      final user = User(
-        userName: _userName.text,
-        email: _email.text,
-        name: _name.text,
-        address: _address.text,
-        city: _city.text,
-        state: _state.text,
-        zipCode: _zipCode.text,
-        password: _password.text,
-        dateOfBirth: _selectedDateOfBirth?.toIso8601String(),
-        dateCreated: DateTime.now().toIso8601String(),
-      );
-
-      final result = await _userService.register(user);
-      if (!mounted) return;
-      if (result != null) {
-        alert.showSuccessToast(
-          context,
-          'Registration successful, now able to access your dashboard and profile',
-          'Registration Successful',
-        );
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const DashboardScreen()),
-        );
-      } else {
-        alert.showErrorToast(
-          context,
-          'Registration failed, please try again later.',
-          'Registration Failed',
-        );
-      }
-    }
-  }
 
   void _pickDate() async {
     DateTime? picked = await showDatePicker(
@@ -126,6 +88,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
       setState(() => _selectedDateOfBirth = picked);
     }
   }
+
+  void _submitRegister() async {
+    if (_formKey.currentState!.validate()) {
+      if (_password.text != _confirmPassword.text) {
+        alert.showErrorToast(context, 'Password and Confirm Password do not match', 'Error');
+        return;
+      }
+
+      final user = User(
+        userName: _userName.text.trim(),
+        email: _email.text.trim(),
+        name: _name.text.trim(),
+        address: _address.text.trim(),
+        city: _city.text.trim(),
+        state: _state.text.trim(),
+        zipCode: _zipCode.text.trim(),
+        dateOfBirth: _selectedDateOfBirth,
+        password: _password.text.trim(),
+        dateCreated: DateTime.now(),
+      );
+
+      var success = await _userService.register(user);
+
+      if (success != null) {
+        alert.showSuccessToast(context, 'Successfully registered, taking you to the login screen', 'Registered Successfully');
+        Navigator.pushNamed(context, LoginScreen.id);
+      } else {
+        alert.showErrorToast(context, 'Registration failed, please try again later', 'Registration Failed');
+      }
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -239,10 +234,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          controller: _state,
-                          decoration: kTextInputStateStyle,
-                        ),
+                        child: USStateSelector(),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -375,7 +367,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                          onPressed: _register,
+                          onPressed: _submitRegister,
                           style: ElevatedButton.styleFrom(
                             foregroundColor: Colors.white,
                             backgroundColor: Colors.indigo,

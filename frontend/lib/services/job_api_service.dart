@@ -6,7 +6,7 @@ import 'package:frontend/models/job_notes.dart';
 
 class ContactApiService {
   final Dio _dio = Dio(BaseOptions(
-    baseUrl: 'http://localhost:5244/api/Main/Job',
+    baseUrl: 'http://192.168.1.6:8000/api/Main/Job',
     contentType: 'application/json',
   ));
 

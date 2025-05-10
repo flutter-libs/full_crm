@@ -30,4 +30,5 @@ public class Lead
     public virtual IEnumerable<LeadNotes>? LeadNotes{ get; set; }
     public virtual IEnumerable<Campaign>? Campaigns { get; set; }
     public virtual IEnumerable<Meeting>? Meetings { get; set; }
+    public virtual IEnumerable<LeadTask>? LeadTasks { get; set; }
 }

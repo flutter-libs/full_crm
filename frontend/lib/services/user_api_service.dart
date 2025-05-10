@@ -1,150 +1,254 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
+import 'dart:convert';
+import 'dart:io';
 import 'package:frontend/models/user.dart';
 import 'package:frontend/models/user_notes.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:frontend/widgets/toast_alerts.dart' as alert;
-
+import 'package:http/io_client.dart';
 
 
 class UserAPIService {
-  final Dio _dio = Dio(BaseOptions(baseUrl: 'http://localhost:5244/api/Identity/User'));
-  final Dio _userNoteDio = Dio(BaseOptions(baseUrl: 'http://localhost:5244/api/Main/Note/userNotes'));
-  get context => BuildContext;
-
-  Future<bool> register(User user) async {
+  Future register(User user) async {
+    String baseUrl = "http://192.168.1.248:8000/api/Identity/User";
     try {
-      final response = await _dio.post('/register', data: user.toJson());
-      return response.statusCode == 200 || response.statusCode == 201;
+      final ioc = HttpClient();
+      ioc.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+      final http = IOClient(ioc);
+      final url = Uri.parse('$baseUrl/register');
+      final response = await http.post(
+        url,
+        headers: {'content-type': 'application/json'},
+        body: jsonEncode({'userName': user.userName, 'email': user.email, 'name': user.name, 'address': user.address,
+          'city': user.city, 'state': user.state, 'zipCode': user.zipCode, 'password': user.password,'dateOfBirth': user.dateOfBirth.toString()
+        }),
+      );
+      if(response.statusCode == 200) {
+        print(response.body);
+      } else {
+        print('A network error has occurred');
+      }
     } catch (e) {
-      alert.showErrorToast(context, '$e', 'Register Error');
-      return false;
+      throw Exception(e);
     }
   }
 
-  Future<bool> login(String email, String password) async {
+  Future login(String email, String password) async {
+    String baseUrl = "http://192.168.1.248:8000/api/Identity/User";
     try {
-      final response = await _dio.post('/login', data: {
-        'email': email,
-        'password': password,
-      });
+      final ioc = HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = IOClient(ioc);
+      final url = Uri.parse('$baseUrl/login');
+      final response = await http.post(
+        url,
+        headers: {'content-type': 'application/json'},
+        body: jsonEncode({'email': email, 'password': password}),
+      );
 
       if (response.statusCode == 200) {
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('token', response.data['token']);
-        return true;
+        final data = jsonDecode(response.body);
+        return data['token'];
       }
-
-      return false;
-    } catch (e) {
-      alert.showErrorToast(context, '$e', 'Login Error');
-      return false;
+    } catch(e) {
+      throw Exception(e);
     }
   }
 
-  Future<void> logout() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('token');
+  Future<bool> logout(String token) async {
+    String baseUrl = "http://192.168.1.248:8000/api/Identity/User";
+    try {
+      final ioc = HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = IOClient(ioc);
+      final url = Uri.parse('$baseUrl/logout');
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      return response.statusCode == 200;
+    } catch(e){
+      throw Exception(e);
+    }
   }
 
   Future<List<User>> getAllUsers() async {
+    String baseUrl = "http://192.168.1.6:8000/api/Identity/User";
     try {
-      final response = await _dio.get('/');
-      return (response.data as List).map((json) => User.fromJson(json)).toList();
+      final ioc = HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = IOClient(ioc);
+      final response = await http.get(Uri.parse(baseUrl));
+      if (response.statusCode == 200) {
+        List<dynamic> data = jsonDecode(response.body);
+        return data.map((userJson) => User.fromJson(userJson)).toList();
+      } else {
+        throw Exception('Failed to load users');
+      }
     } catch (e) {
-      alert.showErrorToast(context, '$e', 'Could not retrieve all users.');
-      return [];
+      throw Exception(e);
     }
   }
 
-  Future<User?> getUserById(String id) async {
+  Future<User> getUserById(String id) async {
+    String baseUrl = "http://192.168.1.6:8000/api/Identity/User";
     try {
-      final response = await _dio.get('/$id');
-      return User.fromJson(response.data);
+      final ioc = HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = IOClient(ioc);
+      final response = await http.get(Uri.parse('$baseUrl/$id'));
+      if (response.statusCode == 200) {
+        return User.fromJson(jsonDecode(response.body));
+      } else {
+        throw Exception('User not found');
+      }
     } catch (e) {
-      alert.showErrorToast(context, '$e', 'Could not get the user by id: $id');
-      return null;
+      throw Exception(e);
     }
   }
 
   Future<bool> updateUser(String id, User user) async {
+    String baseUrl = "http://192.168.1.6:8000/api/Identity/User";
     try {
-      final response = await _dio.put('/$id', data: user.toJson());
+      final ioc = HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = IOClient(ioc);
+      final response = await http.put(
+        Uri.parse('$baseUrl/$id'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(user.toJson()),
+      );
       return response.statusCode == 200;
     } catch (e) {
-      alert.showErrorToast(context, '$e', 'Could not update the user.');
-      return false;
+      throw Exception(e);
     }
   }
 
   Future<bool> deleteUser(String id) async {
+    String baseUrl = "http://192.168.1.6:8000/api/Identity/User";
     try {
-      final response = await _dio.delete('/$id');
+      final ioc = HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = IOClient(ioc);
+      final response = await http.delete(Uri.parse('$baseUrl/$id'));
       return response.statusCode == 200;
     } catch (e) {
-      alert.showErrorToast(context, '$e', 'Could not delete the user.');
-      return false;
+      throw Exception(e);
     }
   }
 
-  Future<int> countAllUsers() async {
+  Future<int> countUsers() async {
+    String baseUrl = "http://192.168.1.6:8000/api/Identity/User";
     try {
-      final response = await _dio.get('/count');
-      return response.data['count'] ?? 0;
+      final ioc = HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = IOClient(ioc);
+      final response = await http.get(Uri.parse('$baseUrl/count'));
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return data['count'];
+      } else {
+        throw Exception('Failed to count users');
+      }
     } catch (e) {
-      alert.showErrorToast(context, '$e', 'Could not retrieve the count of users.');
-      return 0;
+      throw Exception(e);
     }
   }
+}
 
 
-  Future<List<UserNotes>> getAllUserNotes() async {
-    try {
-      final response = await _userNoteDio.get('/');
-      return (response.data as List).map((json) => UserNotes.fromJson(json)).toList();
-    } catch (e) {
-      alert.showErrorToast(context, '$e', 'Could not retrieve all users.');
-      return [];
+Future<List<UserNotes>> getAllUserNotes() async {
+  String baseUrl = "http://192.168.1.6:8000/api/Main/Note/userNotes";
+  try {
+    final ioc = HttpClient();
+    ioc.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    final http = IOClient(ioc);
+    final response = await http.get(Uri.parse(baseUrl));
+    if (response.statusCode == 200) {
+      List<dynamic> data = jsonDecode(response.body);
+      return data.map((userJson) => UserNotes.fromJson(userJson)).toList();
+    } else {
+      throw Exception('Failed to load user notes');
     }
+  } catch (e) {
+    throw Exception(e);
   }
+}
 
-  Future<UserNotes?> getUserNoteById(String id) async {
-    try {
-      final response = await _userNoteDio.get('/$id');
-      return UserNotes.fromJson(response.data);
-    } catch (e) {
-      alert.showErrorToast(context, '$e', 'Could not get the user by id: $id');
-      return null;
+Future<UserNotes> getUserNoteById(String id) async {
+  String baseUrl = "http://192.168.1.6:8000/api/Main/Note/userNotes";
+  try {
+    final ioc = HttpClient();
+    ioc.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    final http = IOClient(ioc);
+    final response = await http.get(Uri.parse('$baseUrl/$id'));
+    if (response.statusCode == 200) {
+      return UserNotes.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('User note not found');
     }
+  } catch (e) {
+    throw Exception(e);
   }
+}
 
-  Future<bool> updateUserNote(String id, UserNotes note) async {
-    try {
-      final response = await _userNoteDio.put('/$id', data: note.toJson());
-      return response.statusCode == 200;
-    } catch (e) {
-      alert.showErrorToast(context, '$e', 'Could not update the user.');
-      return false;
-    }
+Future<bool> updateUserNote(String id, UserNotes user) async {
+  String baseUrl = "http://192.168.1.6:8000/api/Main/Note/userNotes";
+  try {
+    final ioc = HttpClient();
+    ioc.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    final http = IOClient(ioc);
+    final response = await http.put(
+      Uri.parse('$baseUrl/$id'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(user.toJson()),
+    );
+    return response.statusCode == 200;
+  } catch (e) {
+    throw Exception(e);
   }
+}
 
-  Future<bool> deleteUserNote(String id) async {
-    try {
-      final response = await _userNoteDio.delete('/$id');
-      return response.statusCode == 200;
-    } catch (e) {
-      alert.showErrorToast(context, '$e', 'Could not delete the user.');
-      return false;
-    }
+Future<bool> deleteUserNote(String id) async {
+  String baseUrl = "http://192.168.1.6:8000/api/Main/Note/userNotes";
+  try {
+    final ioc = HttpClient();
+    ioc.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    final http = IOClient(ioc);
+    final response = await http.delete(Uri.parse('$baseUrl/$id'));
+    return response.statusCode == 200;
+  } catch (e) {
+    throw Exception(e);
   }
+}
 
-  Future<int> countAllUserNotes() async {
-    try {
-      final response = await _userNoteDio.get('/count');
-      return response.data['count'] ?? 0;
-    } catch (e) {
-      alert.showErrorToast(context, '$e', 'Could not retrieve the count of users.');
-      return 0;
+Future<int> countUserNotes() async {
+  String baseUrl = "http://192.168.1.6:8000/api/Main/Note/userNotes";
+  try {
+    final ioc = HttpClient();
+    ioc.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    final http = IOClient(ioc);
+    final response = await http.get(Uri.parse('$baseUrl/count'));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return data['count'];
+    } else {
+      throw Exception('Failed to count users');
     }
+  } catch (e) {
+    throw Exception(e);
   }
 }

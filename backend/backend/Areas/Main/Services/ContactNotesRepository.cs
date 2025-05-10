@@ -1,5 +1,7 @@
 using backend.Areas.Main.Models;
+using backend.Areas.Main.Models.ViewModels;
 using backend.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Areas.Main.Services;
@@ -34,14 +36,14 @@ public class ContactNotesRepository : IContactNotesRepository
         return contactNote;
     }
 
-    public async Task<ContactNotes> AddAsync(ContactNotes note)
+    public async Task<ContactNotes> AddAsync([FromBody] AddContactNoteViewModel note)
     {
         var contactNote = new ContactNotes
         {
             Note = new Note
             {
-                Title = note.Note.Title,
-                Content = note.Note.Content,
+                Title = note.Title,
+                Content = note.Content,
                 Created = DateTime.Now,
             },
             ContactId = note.ContactId,
@@ -51,12 +53,12 @@ public class ContactNotesRepository : IContactNotesRepository
         return contactNote;
     }
 
-    public async Task UpdateAsync(int id, ContactNotes note)
+    public async Task UpdateAsync(int id, [FromBody] UpdateContactNoteViewModel note)
     {
         var contactNote = await GetContactNoteById(id);
-        contactNote.Note.Title = note.Note.Title;
-        contactNote.Note.Content = note.Note.Content;
-        contactNote.Note.Updated = DateTime.Now;
+        contactNote.Note.Title = note.Title;
+        contactNote.Note.Content = note.Content;
+        contactNote.Note.Updated = note.Updated;
         _context.ContactNotes.Update(contactNote);
         await _context.SaveChangesAsync();
     }

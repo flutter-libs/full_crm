@@ -99,3 +99,18 @@ public class UpdateContactViewModel : Contact
     public DateTime? DateUpdated { get; set; } = DateTime.Now;
     public string? ImageUrl { get; set; }
 }
+
+public class AddContactNoteViewModel
+{
+    public string Title { get; set; }
+    public string Content { get; set; }
+    public DateTime Created { get; set; } = DateTime.Now;
+    public int ContactId { get; set; }
+}
+
+public class UpdateContactNoteViewModel
+{
+    public string Title { get; set; }
+    public string Content { get; set; }
+    public DateTime Updated { get; set; } = DateTime.Now;
+}

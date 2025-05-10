@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/screens/campaign/campaign_create_screen.dart';
 import 'package:frontend/screens/campaign/campaign_detail_screen.dart';
@@ -17,6 +19,7 @@ import 'package:frontend/screens/meeting/meeting_create_screen.dart';
 import 'package:frontend/screens/meeting/meeting_detail_screen.dart';
 import 'package:frontend/screens/meeting/meeting_list_screen.dart';
 import 'package:frontend/screens/register_screen.dart';
+import 'package:http/io_client.dart';
 import 'package:toastification/toastification.dart';
 import 'package:window_manager/window_manager.dart';
 

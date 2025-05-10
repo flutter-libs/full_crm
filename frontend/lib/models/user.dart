@@ -21,8 +21,8 @@ class User {
   String? description;
   String? password;
   int? messageUserId;
-  String? dateOfBirth;
-  String? dateCreated;
+  DateTime? dateOfBirth;
+  DateTime? dateCreated;
   List<Campaign>? campaigns;
   List<UserRoles>? userRoles;
   List<Lead>? leads;
@@ -75,8 +75,8 @@ class User {
       description: json['description'],
       password: json['password'],
       messageUserId: json['messageUserId'],
-      dateOfBirth: json['dateOfBirth'],
-      dateCreated: json['dateCreated'],
+      dateOfBirth: (json['dateOfBirth'] as DateTime),
+      dateCreated: (json['dateCreated'] as DateTime),
       campaigns: (json['campaigns'] as List?)?.map((e) => Campaign.fromJson(e)).toList(),
       userRoles: (json['userRoles'] as List?)?.map((e) => UserRoles.fromJson(e)).toList(),
       leads: (json['leads'] as List?)?.map((e) => Lead.fromJson(e)).toList(),
@@ -104,8 +104,8 @@ class User {
       'description': description,
       'password': password,
       'messageUserId': messageUserId,
-      'dateOfBirth': dateOfBirth,
-      'dateCreated': dateCreated,
+      'dateOfBirth': dateOfBirth!.toIso8601String(),
+      'dateCreated': dateCreated!.toIso8601String(),
       'campaigns': campaigns?.map((e) => e.toJson()).toList(),
       'userRoles': userRoles?.map((e) => e.toJson()).toList(),
       'leads': leads?.map((e) => e.toJson()).toList(),

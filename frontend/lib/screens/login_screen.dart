@@ -5,6 +5,7 @@ import 'package:frontend/screens/register_screen.dart';
 import 'package:frontend/services/user_api_service.dart';
 import 'package:frontend/widgets/custom_app_bar.dart';
 import 'package:frontend/widgets/side_nav_drawer.dart';
+import 'package:frontend/widgets/toast_alerts.dart' as alert;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,33 +18,20 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final UserAPIService _apiService = UserAPIService();
   var _obscurePassword = true;
 
   bool _isLoading = false;
 
-  Future<void> _login() async {
-    if (_formKey.currentState?.validate() != true) return;
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    final success = await _apiService.login(
-      _emailController.text.trim(),
-      _passwordController.text.trim(),
-    );
-
-    setState(() {
-      _isLoading = false;
-    });
-
-    if (success && context.mounted) {
+  void _submitLogin() async {
+    var success = await _apiService.login(_emailController.text.trim(), _passwordController.text.trim());
+    if (success != null) {
+      alert.showSuccessToast(context, 'Successfully logged in to the CRM taking you to dashboard page', 'Logged In Successfully');
       Navigator.pushNamed(context, DashboardScreen.id);
     } else {
-      // Error already shown by alert service
+      alert.showErrorToast(context, 'Login failed, please try again', 'Login Failed');
     }
   }
 
@@ -186,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               : Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: ElevatedButton(
-                                  onPressed: _login,
+                                  onPressed: _submitLogin,
                                   style: ElevatedButton.styleFrom(
                                     foregroundColor: Colors.white,
                                     backgroundColor: Colors.indigo,

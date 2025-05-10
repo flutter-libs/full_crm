@@ -1,3 +1,4 @@
+using System.Net.WebSockets;
 using System.Text;
 using backend.Areas.Communication.Services;
 using backend.Areas.Identity.Models;
@@ -9,7 +10,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 
@@ -24,8 +24,15 @@ public class Program
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));;
-        
-             
+
+        builder.WebHost.ConfigureKestrel(options =>
+        {
+            options.ListenAnyIP(8000);
+            options.ListenAnyIP(8001, listenOptions =>
+            {
+                listenOptions.UseHttps();
+            });
+        });
         Log.Logger = new LoggerConfiguration()
             .WriteTo.File("/Areas/Communication/Logs/Communication_Logs.txt")
             .CreateLogger();
@@ -106,6 +113,7 @@ public class Program
                 // (Optional: restrict origins in production)
             });
         });
+
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IRoleRepository, RoleRepository>();
         builder.Services.AddScoped<IEmailRepository, EmailRepository>();
@@ -125,6 +133,7 @@ public class Program
         builder.Services.AddScoped<IContactNotesRepository, ContactNotesRepository>();
         builder.Services.AddScoped<IJobNoteRepository, JobNoteRepository>();
         builder.Services.AddScoped<IAnalyticRepository, AnalyticRepository>();
+        builder.Services.AddScoped<IJobTaskRepository, JobTaskRepository>();
         
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -140,7 +149,7 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
+        
         app.UseCors("CorsPolicy");
         app.UseHttpsRedirection();
         app.UseAuthentication();
@@ -149,4 +158,5 @@ public class Program
         app.MapControllers();
         app.Run();
     }
+    
 }

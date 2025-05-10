@@ -138,7 +138,7 @@ namespace backend.Areas.Main.Controllers;
         }
 
         [HttpPut("notes/{id}")]
-        public async Task<ActionResult> UpdateContactNotes(int id, [FromBody] ContactNotes notes)
+        public async Task<ActionResult> UpdateContactNotes(int id, [FromBody] UpdateContactNoteViewModel notes)
         {
             if (!ModelState.IsValid)
             {
@@ -167,7 +167,7 @@ namespace backend.Areas.Main.Controllers;
         }
 
         [HttpPost("notes")]
-        public async Task<ActionResult<ContactNotes>> CreateContactNotes([FromBody] ContactNotes notes)
+        public async Task<ActionResult<ContactNotes>> CreateContactNotes([FromBody] AddContactNoteViewModel notes)
         {
             if (!ModelState.IsValid)
             {

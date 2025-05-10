@@ -33,4 +33,5 @@ public class Company
     public IEnumerable<Contact>? Contacts { get; set; }
     public IEnumerable<Tasks>? Tasks { get; set; }
     public IEnumerable<CompanyNotes>? CompanyNotes { get; set; }
+    public virtual IEnumerable<CompanyTask>? CompanyTasks { get; set; }
 }

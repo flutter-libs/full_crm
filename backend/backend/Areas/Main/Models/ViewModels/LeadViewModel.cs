@@ -34,3 +34,32 @@ public class UpdateLeadViewModel
     public DateTime Updated { get; set; } = DateTime.Now;
     public string? CreatedBy { get; set; }
 }
+
+public class AddLeadNoteViewModel
+{
+    public string Title { get; set; }
+    public string Content { get; set; }
+    public DateTime Created { get; set; } = DateTime.Now;
+    public int LeadId { get; set; }
+}
+
+public class UpdateLeadNoteViewModel
+{
+    public string Title { get; set; }
+    public string Content { get; set; }
+    public DateTime Updated { get; set; } = DateTime.Now;
+}
+
+public class AddLeadTaskViewModel
+{
+    public Tasks Tasks { get; set; }
+    public int LeadId { get; set; }
+    public DateTime Created { get; set; } = DateTime.Now;
+}
+
+public class UpdateLeadTaskViewModel
+{
+    public Tasks Tasks { get; set; }
+    public int LeadId { get; set; }
+    public DateTime Updated { get; set; } = DateTime.Now;
+}

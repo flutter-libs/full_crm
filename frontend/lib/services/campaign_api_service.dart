@@ -5,11 +5,11 @@ import 'package:frontend/models/campaign.dart';
 
 class CampaignApiService {
   final Dio _dio = Dio(BaseOptions(
-    baseUrl: 'http://localhost:5244/api/Main/Campaign',
+    baseUrl: 'http://192.168.1.6:8000/api/Main/Campaign',
     contentType: 'application/json',
   ));
   final Dio _userDio = Dio(BaseOptions(
-    baseUrl: 'http://localhost:5244/api/Identity/User',
+    baseUrl: 'http://192.168.1.6:8000/api/Identity/User',
     contentType: 'application/json',
   ));
 

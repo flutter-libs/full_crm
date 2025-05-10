@@ -35,5 +35,9 @@ public class Tasks
     public DateTime? DateUpdated { get; set; }
     public DateTime? DateCompleted { get; set; } 
     public IEnumerable<TaskNotes>? TaskNotes { get; set; }
+    public IEnumerable<JobTask>? JobTasks { get; set; }
+    public IEnumerable<LeadTask>? LeadTasks { get; set; }
+    public IEnumerable<CampaignTask>? CampaignTasks { get; set; }
+    public IEnumerable<CompanyTask>? CompanyTasks { get; set; }
     
 }

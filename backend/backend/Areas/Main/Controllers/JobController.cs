@@ -1,4 +1,5 @@
 using backend.Areas.Main.Models;
+using backend.Areas.Main.Models.ViewModels;
 using backend.Areas.Main.Services;
 using backend.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -16,13 +17,15 @@ public class JobController : ControllerBase
     private readonly IJobRepository _jobRepository;
     private readonly ILogger<JobController> _logger;
     private readonly IJobNoteRepository _jobNoteRepository;
+    private readonly IJobTaskRepository _jobTaskRepository;
     public JobController(ApplicationDbContext context, IJobRepository jobRepository, ILogger<JobController> logger,
-        IJobNoteRepository jobNoteRepository)
+        IJobNoteRepository jobNoteRepository, IJobTaskRepository jobTaskRepository)
     {
         _context = context;
         _jobRepository = jobRepository;
         _logger = logger;
         _jobNoteRepository = jobNoteRepository;
+        _jobTaskRepository = jobTaskRepository;
     }
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Job>>> GetJobs()
@@ -148,5 +151,88 @@ public class JobController : ControllerBase
     public async Task<ActionResult<int>> GetNotesCount()
     {
         return Ok(await _jobNoteRepository.CountAsync());
+    }
+
+    [HttpGet("jobTasks")]
+    public async Task<ActionResult<IEnumerable<JobTask>>> GetJobTasks()
+    {
+        try
+        {
+            return Ok(await _jobTaskRepository.GetJobTasks());
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"Exception at retrieving job tasks {ex.Message}");
+        }
+    }
+
+    [HttpGet("jobTasks/{id}")]
+    public async Task<ActionResult<JobTask>> GetJobTask(int id)
+    {
+        try
+        {
+            return Ok(await _jobTaskRepository.GetJobTask(id));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"Exception at retrieving job tasks with the id: {id} - {ex.Message}");
+        }
+    }
+
+    [HttpPost("jobTasks")]
+    public async Task<ActionResult<JobTask>> CreateJobTask([FromBody] AddJobTaskViewModel jobTask)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        try
+        {
+            await _jobTaskRepository.CreateJobTask(jobTask);
+            return Ok("Job Task Created.");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"There was an Exception when creating a job task - {ex.Message}");
+        }
+    }
+
+    [HttpPut("jobTasks/{id}")]
+    public async Task<ActionResult<JobTask>> UpdateJobTask(int id, [FromBody] UpdateJobTaskViewModel jobTask)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        try
+        {
+            await _jobTaskRepository.UpdateJobTask(id, jobTask);
+            return Ok("Job Task Updated.");
+        }
+        catch (DbUpdateConcurrencyException ex)
+        {
+            return BadRequest($"DbUpdateConcurrencyException: {ex.Message}");
+        }
+        catch (DbUpdateException ex)
+        {
+            return BadRequest($"DbUpdateException: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"Exception: {ex.Message}");
+        }
+    }
+
+    [HttpDelete("jobTasks/{id}")]
+    public async Task<ActionResult<JobTask>> DeleteJobTask(int id)
+    {
+        await _jobTaskRepository.DeleteJobTask(id);
+        return Ok("Job Task Deleted.");
+    }
+
+    [HttpGet("jobTasks/count")]
+    public async Task<ActionResult<int>> GetJobTasksCount()
+    {
+        return Ok(await _jobTaskRepository.CountJobTasks());
     }
 }

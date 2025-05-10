@@ -6,22 +6,22 @@ void showSuccessToast(BuildContext context, String description, String title) {
     context: context, // optional if you use ToastificationWrapper
     type: ToastificationType.success,
     style: ToastificationStyle.fillColored,
-    autoCloseDuration: const Duration(seconds: 5),
+    autoCloseDuration: const Duration(seconds: 15),
     title: Text(title),
     // you can also use RichText widget for title and description parameters
     description: RichText(text: TextSpan(text: description)),
-    alignment: Alignment.topRight,
+    alignment: Alignment.topCenter,
     direction: TextDirection.ltr,
-    animationDuration: const Duration(milliseconds: 300),
+    animationDuration: const Duration(milliseconds: 1000),
     animationBuilder: (context, animation, alignment, child) {
       return FadeTransition(
-        opacity: 0.9 as Animation<double>,
+        opacity: animation,
         child: child,
       );
     },
-    icon: const Icon(Icons.check),
+    icon: const Icon(Icons.check, color: Colors.white),
     showIcon: true, // show or hide the icon
-    primaryColor: Colors.white,
+    primaryColor: Colors.green,
     backgroundColor: Colors.green,
     foregroundColor: Colors.white,
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
@@ -40,9 +40,12 @@ void showSuccessToast(BuildContext context, String description, String title) {
       showType: CloseButtonShowType.onHover,
       buttonBuilder: (context, onClose) {
         return OutlinedButton.icon(
+          style: OutlinedButton.styleFrom(
+            elevation: 10.0,
+          ),
           onPressed: onClose,
-          icon: const Icon(Icons.close, size: 20),
-          label: const Text('Close'),
+          icon: const Icon(Icons.close, size: 20, color: Colors.red),
+          label: const Text('Close', style: TextStyle(color: Colors.white),),
         );
       },
     ),
@@ -50,12 +53,6 @@ void showSuccessToast(BuildContext context, String description, String title) {
     pauseOnHover: true,
     dragToClose: true,
     applyBlurEffect: true,
-    callbacks: ToastificationCallbacks(
-      onTap: (toastItem) => print('Toast ${toastItem.id} tapped'),
-      onCloseButtonTap: (toastItem) => print('Toast ${toastItem.id} close button tapped'),
-      onAutoCompleteCompleted: (toastItem) => print('Toast ${toastItem.id} auto complete completed'),
-      onDismissed: (toastItem) => print('Toast ${toastItem.id} dismissed'),
-    ),
   );
 }
 
@@ -65,22 +62,22 @@ void showErrorToast(BuildContext context, String description, String title) {
     context: context, // optional if you use ToastificationWrapper
     type: ToastificationType.error,
     style: ToastificationStyle.fillColored,
-    autoCloseDuration: const Duration(seconds: 5),
+    autoCloseDuration: const Duration(seconds: 15),
     title: Text(title),
     // you can also use RichText widget for title and description parameters
     description: RichText(text: TextSpan(text: description)),
-    alignment: Alignment.topRight,
+    alignment: Alignment.topCenter,
     direction: TextDirection.ltr,
     animationDuration: const Duration(milliseconds: 300),
     animationBuilder: (context, animation, alignment, child) {
       return FadeTransition(
-        opacity: 0.9 as Animation<double>,
+        opacity: animation,
         child: child,
       );
     },
     icon: const Icon(Icons.check),
     showIcon: true,
-    primaryColor: Colors.white,
+    primaryColor: Colors.red,
     backgroundColor: Colors.red,
     foregroundColor: Colors.white,
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
@@ -99,9 +96,12 @@ void showErrorToast(BuildContext context, String description, String title) {
       showType: CloseButtonShowType.onHover,
       buttonBuilder: (context, onClose) {
         return OutlinedButton.icon(
+          style: OutlinedButton.styleFrom(
+            elevation: 10.0,
+          ),
           onPressed: onClose,
-          icon: const Icon(Icons.close, size: 20),
-          label: const Text('Close'),
+          icon: const Icon(Icons.close, size: 20, color: Colors.red),
+          label: const Text('Close', style: TextStyle(color: Colors.white),),
         );
       },
     ),
@@ -109,12 +109,6 @@ void showErrorToast(BuildContext context, String description, String title) {
     pauseOnHover: true,
     dragToClose: true,
     applyBlurEffect: true,
-    callbacks: ToastificationCallbacks(
-      onTap: (toastItem) => print('Toast ${toastItem.id} tapped'),
-      onCloseButtonTap: (toastItem) => print('Toast ${toastItem.id} close button tapped'),
-      onAutoCompleteCompleted: (toastItem) => print('Toast ${toastItem.id} auto complete completed'),
-      onDismissed: (toastItem) => print('Toast ${toastItem.id} dismissed'),
-    ),
   );
 }
 
@@ -123,22 +117,22 @@ void showInfoToast(BuildContext context, String description, String title) {
     context: context, // optional if you use ToastificationWrapper
     type: ToastificationType.info,
     style: ToastificationStyle.fillColored,
-    autoCloseDuration: const Duration(seconds: 5),
+    autoCloseDuration: const Duration(seconds: 15),
     title: Text(title),
     // you can also use RichText widget for title and description parameters
     description: RichText(text: TextSpan(text: description)),
-    alignment: Alignment.topRight,
+    alignment: Alignment.topCenter,
     direction: TextDirection.ltr,
     animationDuration: const Duration(milliseconds: 300),
     animationBuilder: (context, animation, alignment, child) {
       return FadeTransition(
-        opacity: 0.9 as Animation<double>,
+        opacity: animation,
         child: child,
       );
     },
     icon: const Icon(Icons.check),
     showIcon: true, // show or hide the icon
-    primaryColor: Colors.white,
+    primaryColor: Colors.blue,
     backgroundColor: Colors.blue,
     foregroundColor: Colors.white,
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
@@ -157,9 +151,12 @@ void showInfoToast(BuildContext context, String description, String title) {
       showType: CloseButtonShowType.onHover,
       buttonBuilder: (context, onClose) {
         return OutlinedButton.icon(
+          style: OutlinedButton.styleFrom(
+            elevation: 10.0,
+          ),
           onPressed: onClose,
-          icon: const Icon(Icons.close, size: 20),
-          label: const Text('Close'),
+          icon: const Icon(Icons.close, size: 20, color: Colors.red),
+          label: const Text('Close', style: TextStyle(color: Colors.white),),
         );
       },
     ),
@@ -167,11 +164,5 @@ void showInfoToast(BuildContext context, String description, String title) {
     pauseOnHover: true,
     dragToClose: true,
     applyBlurEffect: true,
-    callbacks: ToastificationCallbacks(
-      onTap: (toastItem) => print('Toast ${toastItem.id} tapped'),
-      onCloseButtonTap: (toastItem) => print('Toast ${toastItem.id} close button tapped'),
-      onAutoCompleteCompleted: (toastItem) => print('Toast ${toastItem.id} auto complete completed'),
-      onDismissed: (toastItem) => print('Toast ${toastItem.id} dismissed'),
-    ),
   );
 }
