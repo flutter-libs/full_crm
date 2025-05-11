@@ -134,6 +134,9 @@ public class Program
         builder.Services.AddScoped<IJobNoteRepository, JobNoteRepository>();
         builder.Services.AddScoped<IAnalyticRepository, AnalyticRepository>();
         builder.Services.AddScoped<IJobTaskRepository, JobTaskRepository>();
+        builder.Services.AddScoped<ILeadTaskRepository, LeadTaskRepository>();
+        builder.Services.AddScoped<ICampaignTaskRepository, CampaignTaskRepository>();
+        builder.Services.AddScoped<ICompanyTaskRepository, CompanyTaskRepository>();
         
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();

@@ -64,6 +64,7 @@ public class CampaignTaskRepository : ICampaignTaskRepository
         campaignTask.Tasks.Priority = task.Tasks.Priority;
         campaignTask.Tasks.AssignedToUser = task.Tasks.AssignedToUser;
         campaignTask.Tasks.DateUpdated = task.Tasks.DateUpdated;
+        campaignTask.CampaignId = task.CampaignId;
         campaignTask.Updated = task.Updated;
         _context.CampaignTasks.Update(campaignTask);
         await _context.SaveChangesAsync();

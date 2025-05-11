@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using backend.Areas.Blog.Models;
 using backend.Areas.Communication.Models;
+using backend.Areas.Ecommerce.Models;
 using backend.Areas.Main.Models;
 using backend.Areas.Utility.Models;
 using Microsoft.AspNetCore.Identity;
@@ -37,4 +39,9 @@ public class User : IdentityUser
     public IEnumerable<UserMeeting>? UserMeetings { get; set; }
     public IEnumerable<Meeting>? Meetings { get; set; }
     public IEnumerable<UserNotes>? UserNotes { get; set; }
+    public IEnumerable<Customer>? Customers { get; set; }
+    public IEnumerable<Order>? Orders { get; set; }
+    public IEnumerable<Review>? Reviews { get; set; }
+    public IEnumerable<Post>? Posts { get; set; }
+    public IEnumerable<Comment>? Comments { get; set; }
 }

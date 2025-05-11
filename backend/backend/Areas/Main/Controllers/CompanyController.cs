@@ -1,4 +1,5 @@
 using backend.Areas.Main.Models;
+using backend.Areas.Main.Models.ViewModels;
 using backend.Areas.Main.Services;
 using backend.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +16,15 @@ public class CompanyController : ControllerBase
     private readonly ILogger<CompanyController> _logger;
     private readonly ICompanyRepository _companyRepository;
     private readonly ICompanyNoteRepository _companyNoteRepository;
-    public CompanyController(ApplicationDbContext context, ICompanyRepository companyRepository, ILogger<CompanyController> logger, ICompanyNoteRepository companyNoteRepository)
+    private readonly ICompanyTaskRepository _companyTaskRepository;
+    public CompanyController(ApplicationDbContext context, ICompanyRepository companyRepository, ILogger<CompanyController> logger, 
+        ICompanyNoteRepository companyNoteRepository, ICompanyTaskRepository companyTaskRepository)
     {
         _context = context;
         _companyRepository = companyRepository;
         _logger = logger;
         _companyNoteRepository = companyNoteRepository;
+        _companyTaskRepository = companyTaskRepository;
     }
 
     [HttpGet]
@@ -144,5 +148,77 @@ public class CompanyController : ControllerBase
     public async Task<ActionResult<int>> GetCompanyNotesCount()
     {
         return Ok(await _companyNoteRepository.CountAsync());
+    }
+
+    [HttpGet("companyTasks")]
+    public async Task<ActionResult<IEnumerable<CompanyTask>>> GetCompanyTasks()
+    {
+        return Ok(await _companyTaskRepository.GetAllAsync());
+    }
+
+    [HttpGet("companyTasks/{id}")]
+    public async Task<ActionResult<CompanyTask>> GetCompanyTasks(int id)
+    {
+        return Ok(await _companyTaskRepository.GetByIdAsync(id));
+    }
+
+    [HttpPost("companyTasks")]
+    public async Task<ActionResult<CompanyTask>> CreateCompanyTasks([FromBody] AddCompanyTaskViewModel companyTasks)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        try
+        {
+            await _companyTaskRepository.AddAsync(companyTasks);
+            return Ok("CompanyTasks created");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPut("companyTasks/{id}")]
+    public async Task<ActionResult<CompanyTask>> UpdateCompanyTasks(int id,
+        [FromBody] UpdateCompanyTaskViewModel companyTask)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        try
+        {
+            await _companyTaskRepository.UpdateAsync(id, companyTask);
+            return Ok("CompanyTasks updated");
+        }
+        catch (DbUpdateConcurrencyException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (DbUpdateException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpDelete("companyTasks/{id}")]
+    public async Task<ActionResult> DeleteCompanyTasks(int id)
+    {
+        await _companyTaskRepository.DeleteAsync(id);
+        return Ok("CompanyTasks deleted");
+    }
+
+    [HttpGet("companyTasks/count")]
+    public async Task<ActionResult<int>> GetCompanyTasksCount()
+    {
+        return Ok(await _companyTaskRepository.CountAsync());
     }
 }

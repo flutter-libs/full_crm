@@ -1,10 +1,13 @@
+using backend.Areas.Blog.Models;
 using backend.Areas.Communication.Models;
+using backend.Areas.Ecommerce.Models;
 using backend.Areas.Identity.Models;
 using backend.Areas.Main.Models;
 using backend.Areas.Utility.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Category = backend.Areas.Blog.Models.Category;
 
 namespace backend.Data;
 
@@ -39,6 +42,25 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
     public DbSet<LeadTask> LeadTasks { get; set; }
     public DbSet<CampaignTask> CampaignTasks { get; set; }
     public DbSet<CompanyTask> CompanyTasks { get; set; }
+    public DbSet<Post> Posts { get; set; }
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<PostCategories> PostCategories { get; set; }
+    
+    //----------------  Ecommerce Tables  ---------------------//
+    public DbSet<Product> Products { get; set; }
+    public DbSet<ProductCategories> ProductCategories { get; set; }
+    public DbSet<ProductCategory> ProductCategory { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
+    public DbSet<Review> Reviews { get; set; }
+    public DbSet<Customer> Customers { get; set; }
+    public DbSet<Image> Images { get; set; }
+    public DbSet<ProductImages> ProductImages { get; set; }
+    public DbSet<Payment> Payments { get; set; }
+    public DbSet<CustomerOrders> CustomerOrders { get; set; }
+    public DbSet<Cart> Carts { get; set; }
+    public DbSet<Address> Addresses { get; set; }
+    public DbSet<WishListItem> WishListItems { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -381,6 +403,174 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
             entity.HasOne(n => n.Tasks)
                 .WithMany(n => n.CompanyTasks)
                 .HasForeignKey(n => n.TaskId)
+                .HasPrincipalKey(c => c.Id);
+        });
+        //----------------  Blog Tables  ---------------------//
+        builder.Entity<Post>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.AuthorId });
+            entity.HasOne(n => n.Author)
+                .WithMany(n => n.Posts)
+                .HasForeignKey(n => n.AuthorId);
+        });
+        builder.Entity<Category>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+        });
+        builder.Entity<Comment>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.AuthorId });
+            entity.HasOne(n => n.Author)
+                .WithMany(n => n.Comments)
+                .HasForeignKey(n => n.AuthorId);
+        });
+        builder.Entity<PostCategories>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.CategoryId, e.PostId });
+            entity.HasOne(n => n.Category)
+                .WithMany(n => n.PostCategories)
+                .HasForeignKey(n => n.CategoryId)
+                .HasPrincipalKey(c => c.Id);
+            entity.HasOne(n => n.Post)
+                .WithMany(n => n.PostCategories)
+                .HasForeignKey(n => n.PostId)
+                .HasPrincipalKey(c => c.Id);
+        });
+        //----------------  Ecommerce Tables  ---------------------//
+        builder.Entity<Product>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+        });
+        builder.Entity<ProductCategory>(entity =>
+        {
+            entity.HasKey(x => x.Id);
+        });
+        builder.Entity<ProductCategories>(entity =>
+        {
+            entity.HasKey(x => new { x.Id, x.ProductId, x.CategoryId });
+            entity.HasOne(n => n.Product)
+                .WithMany(n => n.ProductCategories)
+                .HasForeignKey(n => n.ProductId)
+                .HasPrincipalKey(c => c.Id);
+            entity.HasOne(c => c.Category)
+                .WithMany(n => n.ProductCategories)
+                .HasForeignKey(n => n.CategoryId)
+                .HasPrincipalKey(c => c.Id);
+        });
+        builder.Entity<Image>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+        });
+        builder.Entity<ProductImages>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.ProductId, e.ImageId });
+            entity.HasOne(n => n.Product)
+                .WithMany(n => n.ProductImages)
+                .HasForeignKey(n => n.ProductId)
+                .HasPrincipalKey(c => c.Id);
+            entity.HasOne(n => n.Image)
+                .WithMany(n => n.ProductImages)
+                .HasForeignKey(n => n.ImageId)
+                .HasPrincipalKey(c => c.Id);
+        });
+        builder.Entity<Address>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.CustomerId });
+            entity.HasOne(n => n.Customer)
+                .WithMany(n => n.Addresses)
+                .HasForeignKey(n => n.CustomerId)
+                .HasPrincipalKey(c => c.Id);
+        });
+        builder.Entity<Order>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.UserId });
+            entity.HasOne(x => x.User)
+                .WithMany(n => n.Orders)
+                .HasForeignKey(n => n.UserId)
+                .HasPrincipalKey(c => c.Id);
+        });
+        builder.Entity<OrderItem>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.OrderId, e.ProductId });
+            entity.HasOne(n => n.Order)
+                .WithMany(n => n.OrderItems)
+                .HasForeignKey(n => n.OrderId)
+                .HasPrincipalKey(c => c.Id);
+            entity.HasOne(n => n.Product)
+                .WithMany(x => x.OrderItems)
+                .HasForeignKey(n => n.ProductId)
+                .HasPrincipalKey(c => c.Id);
+        });
+        builder.Entity<Payment>(entity =>
+        {
+            entity.HasKey(x => new { x.Id, x.OrderId });
+            entity.HasOne(n => n.Order)
+                .WithMany(n => n.Payments)
+                .HasForeignKey(n => n.OrderId)
+                .HasPrincipalKey(c => c.Id);
+        });
+        builder.Entity<Cart>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.CustomerId });
+            entity.HasOne(n => n.Customer)
+                .WithMany(n => n.Carts)
+                .HasForeignKey(n => n.CustomerId)
+                .HasPrincipalKey(c => c.Id);
+        });
+        builder.Entity<CartItem>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.ProductId, e.CartId });
+            entity.HasOne(n => n.Product)
+                .WithMany(n => n.CartItems)
+                .HasForeignKey(n => n.ProductId)
+                .HasPrincipalKey(c => c.Id);
+            entity.HasOne(n => n.Cart)
+                .WithMany(n => n.CartItems)
+                .HasForeignKey(n => n.CartId)
+                .HasPrincipalKey(c => c.Id);
+        });
+        builder.Entity<WishListItem>(entity =>
+        {
+            entity.HasKey(x => new { x.Id, x.ProductId, x.CustomerId });
+            entity.HasOne(n => n.Product)
+                .WithMany(n => n.WishListItems)
+                .HasForeignKey(n => n.ProductId)
+                .HasPrincipalKey(c => c.Id);
+            entity.HasOne(n => n.Customer)
+                .WithMany(n => n.WishListItems)
+                .HasForeignKey(n => n.CustomerId)
+                .HasPrincipalKey(c => c.Id);
+        });
+        builder.Entity<Review>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.ProductId, e.ReviewerId });
+            entity.HasOne(n => n.Product)
+                .WithMany(n => n.Reviews)
+                .HasForeignKey(n => n.ProductId)
+                .HasPrincipalKey(c => c.Id);
+            entity.HasOne(n => n.Reviewer)
+                .WithMany(n => n.Reviews)
+                .HasForeignKey(n => n.ReviewerId)
+                .HasPrincipalKey(c => c.Id);
+        });
+        builder.Entity<Customer>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.UserId });
+            entity.HasOne(n => n.User)
+                .WithMany(n => n.Customers)
+                .HasForeignKey(n => n.UserId)
+                .HasPrincipalKey(c => c.Id);
+        });
+        builder.Entity<CustomerOrders>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.OrderId, e.CustomerId });
+            entity.HasOne(n => n.Order)
+                .WithMany(n => n.CustomerOrders)
+                .HasForeignKey(n => n.OrderId)
+                .HasPrincipalKey(c => c.Id);
+            entity.HasOne(n => n.Customer)
+                .WithMany(n => n.CustomerOrders)
+                .HasForeignKey(n => n.CustomerId)
                 .HasPrincipalKey(c => c.Id);
         });
     }
