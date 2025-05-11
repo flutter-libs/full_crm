@@ -9,64 +9,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d1425baa-9dd4-40ca-a856-768282ecbbab" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Blog/Controllers/CommentController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Blog/Controllers/PostController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Blog/Models/Category.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Blog/Models/Comment.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Blog/Models/Post.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Blog/Models/PostCategories.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Blog/Models/ViewModels/CategoryViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Blog/Models/ViewModels/CommentViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Blog/Models/ViewModels/PostViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Blog/Services/IPostRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Blog/Services/PostRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/CartController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/CustomerController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/OrderController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/PaymentController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/ProductCategoryController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/ProductController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/ReviewController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/Address.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/Cart.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/CartItem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/Customer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/CustomerOrders.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/Image.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/Order.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/OrderItem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/Payment.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/Product.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/ProductCategories.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/ProductCategory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/ProductImages.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/Review.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/ViewModels/CartViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/ViewModels/CustomerViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/ViewModels/OrderViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/ViewModels/PaymentViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/ViewModels/ProductCategoryViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/ViewModels/ProductViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Models/WishListItem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Services/CartRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Services/ICartRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Services/IOrderRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Services/IProductCategoryRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Services/IProductRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Services/IReviewRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Services/OrderRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Services/ProductCategoryRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Services/ProductRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Services/ReviewRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Models/ViewModels/CompanyViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/CompanyTaskRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/ICompanyTaskRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.backend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Areas/Identity/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Identity/Models/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Controllers/CompanyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Controllers/CompanyController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Services/CampaignTaskRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Services/CampaignTaskRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Data/ApplicationDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Data/ApplicationDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -242,7 +186,7 @@
       <workItem from="1746683931259" duration="196000" />
       <workItem from="1746684263858" duration="6432000" />
       <workItem from="1746865329285" duration="5372000" />
-      <workItem from="1746909471887" duration="17405000" />
+      <workItem from="1746909471887" duration="17730000" />
     </task>
     <task id="LOCAL-00001" summary="Added some configuration and styling to the frontend">
       <option name="closed" value="true" />
