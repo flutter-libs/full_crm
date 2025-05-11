@@ -25,13 +25,7 @@ public class RoleRepository : IRoleRepository
         var roles = await _roleManager.Roles.ToListAsync();
         return roles;
     }
-
-    public async Task<IdentityResult> AddUserToRoleAsync(string userId, string roleName)
-    {
-        throw new NotImplementedException();
-    }
-
-    // Create a new role
+    
         public async Task<IdentityResult> CreateRoleAsync([FromBody] AddRoleViewModel model)
         {
             if (await _roleManager.RoleExistsAsync(model.Name))

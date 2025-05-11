@@ -1,5 +1,7 @@
+using backend.Areas.Ecommerce.Models;
 using backend.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Areas.Ecommerce.Controllers;
 
@@ -15,5 +17,11 @@ public class ProductCategoryController : ControllerBase
     {
         _context = context;
         _logger = logger;
+    }
+    
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<ProductCategory>>> GetCategories()
+    {
+        return Ok(await _context.ProductCategory.ToListAsync());
     }
 }

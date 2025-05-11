@@ -1,5 +1,7 @@
+using backend.Areas.Blog.Models;
 using backend.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Areas.Blog.Controllers;
 
@@ -13,5 +15,10 @@ public class PostController : ControllerBase
     public PostController(ApplicationDbContext context)
     {
         _context = context;
+    }
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
+    {
+        return Ok(await _context.Posts.ToListAsync());
     }
 }

@@ -8,6 +8,7 @@ namespace backend.Areas.Main.Models;
 public class Job
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
     [Required]

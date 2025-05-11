@@ -10,14 +10,10 @@ public class AddRoleViewModel : IdentityRole
     public string Name { get; set; }
     public string? Description { get; set; }
 }
-public class UserRolesViewModel : IdentityUserRole<string>
+public class UserRolesViewModel
 {
-    [ForeignKey(nameof(UserId))]
     public string UserId { get; set; }
-    public User User {get;set;}
-    [ForeignKey(nameof(RoleId))]
     public string RoleId { get; set; }
-    public Role Role { get; set; }
 }
 public class RoleAssignViewModel
 {

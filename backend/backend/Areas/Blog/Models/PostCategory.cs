@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Areas.Blog.Models;
 
-public class Category
+public class PostCategory
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

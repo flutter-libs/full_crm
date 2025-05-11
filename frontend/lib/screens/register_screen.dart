@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/constants/form_fields.dart';
 import 'package:frontend/models/user.dart';
@@ -21,7 +22,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _userService = UserAPIService();
+  final _userService = UserApiService();
   var _obscurePassword = true;
   var _obscureConfirmPassword = true;
   DateTime? _selectedDateOfBirth;
@@ -89,37 +90,62 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  void _submitRegister() async {
-    if (_formKey.currentState!.validate()) {
-      if (_password.text != _confirmPassword.text) {
-        alert.showErrorToast(context, 'Password and Confirm Password do not match', 'Error');
-        return;
-      }
+  bool _isLoading = false;
 
-      final user = User(
-        userName: _userName.text.trim(),
-        email: _email.text.trim(),
-        name: _name.text.trim(),
-        address: _address.text.trim(),
-        city: _city.text.trim(),
-        state: _state.text.trim(),
-        zipCode: _zipCode.text.trim(),
-        dateOfBirth: _selectedDateOfBirth,
-        password: _password.text.trim(),
-        dateCreated: DateTime.now(),
-      );
+  Future<void> submitRegisterForm() async {
+    if (!_formKey.currentState!.validate()) return;
 
-      var success = await _userService.register(user);
+    setState(() => _isLoading = true);
 
-      if (success != null) {
-        alert.showSuccessToast(context, 'Successfully registered, taking you to the login screen', 'Registered Successfully');
-        Navigator.pushNamed(context, LoginScreen.id);
+    try {
+      final response = await _userService.register({
+        'userName': _userName.text.trim(),
+        'email': _email.text.trim(),
+        'password': _password.text.trim(),
+        'confirmPassword': _confirmPassword.text.trim(),
+        'name': _name.text.trim(),
+        'dateOfBirth': _selectedDateOfBirth,
+        'address': _address.text.trim(),
+        'city': _city.text.trim(),
+        'state': _state.text.trim(),
+        'zipCode': _zipCode.text.trim()
+      });
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        // Registration success
+        alert.showSuccessToast(context, 'Registration was successful, redirecting to the Dashboard', 'Registration Successful');
+
+        // Navigate to login screen or home
+        Navigator.pushReplacementNamed(context, LoginScreen.id);
       } else {
+        // Handle unexpected status code
         alert.showErrorToast(context, 'Registration failed, please try again later', 'Registration Failed');
       }
+    } on DioException catch (e) {
+      String errorMessage = 'Registration failed';
+      if (e.response?.data != null && e.response?.data is Map<String, dynamic>) {
+        errorMessage = e.response?.data['message'] ?? errorMessage;
+      }
+      alert.showErrorToast(context, errorMessage, 'Registration Failed');
+    } finally {
+      setState(() => _isLoading = false);
     }
   }
 
+@override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _name.dispose();
+    _userName.dispose();
+    _email.dispose();
+    _password.dispose();
+    _confirmPassword.dispose();
+    _address.dispose();
+    _city.dispose();
+    _state.dispose();
+    _zipCode.dispose();
+  }
 
 
   @override
@@ -367,7 +393,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                          onPressed: _submitRegister,
+                          onPressed: submitRegisterForm,
                           style: ElevatedButton.styleFrom(
                             foregroundColor: Colors.white,
                             backgroundColor: Colors.indigo,

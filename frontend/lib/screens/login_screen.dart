@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/constants/form_fields.dart';
 import 'package:frontend/screens/dashboard_screen.dart';
@@ -20,19 +21,51 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final UserAPIService _apiService = UserAPIService();
+  final UserApiService _apiService = UserApiService();
   var _obscurePassword = true;
 
   bool _isLoading = false;
 
-  void _submitLogin() async {
-    var success = await _apiService.login(_emailController.text.trim(), _passwordController.text.trim());
-    if (success != null) {
-      alert.showSuccessToast(context, 'Successfully logged in to the CRM taking you to dashboard page', 'Logged In Successfully');
-      Navigator.pushNamed(context, DashboardScreen.id);
-    } else {
-      alert.showErrorToast(context, 'Login failed, please try again', 'Login Failed');
+  Future<void> loginUser() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      final response = await _apiService.login(
+        _emailController.text.trim(),
+        _passwordController.text.trim(),
+      );
+
+      if (response.statusCode == 200) {
+        // Example: You might store token or user info in SharedPreferences here
+        final token = response.data['token']; // Adjust based on your API
+        // await SharedPreferences.getInstance().then((prefs) => prefs.setString('token', token));
+
+        alert.showSuccessToast(context, 'Login successful, taking you to the dashboard', 'Login Successful');
+
+        // Navigate to home or dashboard
+        Navigator.pushReplacementNamed(context, DashboardScreen.id);
+      } else {
+        alert.showErrorToast(context, 'Login failed, please try again later', 'Login Failed');
+      }
+    } on DioException catch (e) {
+      String errorMessage = 'Login failed. Please try again.';
+      if (e.response?.data != null && e.response?.data is Map<String, dynamic>) {
+        errorMessage = e.response?.data['message'] ?? errorMessage;
+      }
+      alert.showErrorToast(context, errorMessage, 'Login Failed');
+    } finally {
+      setState(() => _isLoading = false);
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
   }
 
   @override
@@ -174,7 +207,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               : Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: ElevatedButton(
-                                  onPressed: _submitLogin,
+                                  onPressed: loginUser,
                                   style: ElevatedButton.styleFrom(
                                     foregroundColor: Colors.white,
                                     backgroundColor: Colors.indigo,

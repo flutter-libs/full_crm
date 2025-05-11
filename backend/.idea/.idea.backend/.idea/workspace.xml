@@ -9,8 +9,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d1425baa-9dd4-40ca-a856-768282ecbbab" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Blog/Logs/ApplicationLogs.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Logs/ApplicationLogs.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.backend/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Blog/Controllers/CommentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Blog/Controllers/CommentController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Blog/Controllers/PostController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Blog/Controllers/PostController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Blog/Models/Category.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Blog/Models/PostCategory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Blog/Models/Comment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Blog/Models/Comment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Blog/Models/Post.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Blog/Models/Post.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Blog/Models/PostCategories.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Blog/Models/PostCategories.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/CartController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/CartController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/CustomerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/CustomerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/OrderController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/OrderController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/PaymentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/PaymentController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/ProductCategoryController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/ProductCategoryController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/ProductController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/ProductController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/ReviewController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Ecommerce/Controllers/ReviewController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Identity/Controllers/RoleController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Identity/Controllers/RoleController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Identity/Models/ViewModels/RoleViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Identity/Models/ViewModels/RoleViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Identity/Services/IRoleRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Identity/Services/IRoleRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Identity/Services/RoleRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Identity/Services/RoleRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Areas/Main/Models/Job.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Areas/Main/Models/Job.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Data/ApplicationDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Data/ApplicationDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Migrations/20250506231514_AddedProject.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Migrations/20250506231514_AddedProject.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Migrations/ApplicationDbContextModelSnapshot.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/WeatherForecast.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/WeatherForecast.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/lib/screens/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/lib/screens/login_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/lib/screens/register_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/lib/screens/register_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/lib/services/user_api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/lib/services/user_api_service.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +106,7 @@
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/backend/backend.csproj" />
       <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
       <option name="LAUNCH_PROFILE_NAME" value="http" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_EXTERNAL_CONSOLE" value="1" />
       <option name="USE_MONO" value="0" />
       <option name="RUNTIME_ARGUMENTS" value="" />
       <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
@@ -186,7 +216,7 @@
       <workItem from="1746683931259" duration="196000" />
       <workItem from="1746684263858" duration="6432000" />
       <workItem from="1746865329285" duration="5372000" />
-      <workItem from="1746909471887" duration="17730000" />
+      <workItem from="1746909471887" duration="31136000" />
     </task>
     <task id="LOCAL-00001" summary="Added some configuration and styling to the frontend">
       <option name="closed" value="true" />

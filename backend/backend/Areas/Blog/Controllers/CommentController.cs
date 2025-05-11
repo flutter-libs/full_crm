@@ -1,5 +1,7 @@
+using backend.Areas.Blog.Models;
 using backend.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Areas.Blog.Controllers;
 
@@ -13,5 +15,11 @@ public class CommentController : ControllerBase
     public CommentController(ApplicationDbContext context)
     {
         _context = context;
+    }
+    
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
+    {
+        return Ok(await _context.Comments.ToListAsync());
     }
 }

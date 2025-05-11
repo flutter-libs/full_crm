@@ -7,7 +7,6 @@ using backend.Areas.Utility.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Category = backend.Areas.Blog.Models.Category;
 
 namespace backend.Data;
 
@@ -43,9 +42,9 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
     public DbSet<CampaignTask> CampaignTasks { get; set; }
     public DbSet<CompanyTask> CompanyTasks { get; set; }
     public DbSet<Post> Posts { get; set; }
-    public DbSet<Category> Categories { get; set; }
+    public DbSet<PostCategory> Categories { get; set; }
     public DbSet<PostCategories> PostCategories { get; set; }
-    
+    public DbSet<Comment> Comments { get; set; }
     //----------------  Ecommerce Tables  ---------------------//
     public DbSet<Product> Products { get; set; }
     public DbSet<ProductCategories> ProductCategories { get; set; }
@@ -99,6 +98,18 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
             entity.HasMany(x => x.UserMeetings)
                 .WithOne(c => c.User)
                 .HasForeignKey(c => c.UserId);
+            entity.HasMany(x => x.Comments)
+                .WithOne(c => c.Author)
+                .HasForeignKey(c => c.AuthorId);
+            entity.HasMany(x => x.Orders)
+                .WithOne(x => x.User)
+                .HasForeignKey(x => x.UserId);
+            entity.HasMany(x => x.Customers)
+                .WithOne(x => x.User)
+                .HasForeignKey(x => x.UserId);
+            entity.HasMany(x => x.Reviews)
+                .WithOne(x => x.Reviewer)
+                .HasForeignKey(x => x.ReviewerId);
         });
         builder.Entity<Role>(entity => { entity.HasKey(e => e.Id); });
         builder.Entity<UserRoles>(entity =>
@@ -413,26 +424,31 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
                 .WithMany(n => n.Posts)
                 .HasForeignKey(n => n.AuthorId);
         });
-        builder.Entity<Category>(entity =>
+        builder.Entity<PostCategory>(entity =>
         {
             entity.HasKey(e => e.Id);
-        });
-        builder.Entity<Comment>(entity =>
-        {
-            entity.HasKey(e => new { e.Id, e.AuthorId });
-            entity.HasOne(n => n.Author)
-                .WithMany(n => n.Comments)
-                .HasForeignKey(n => n.AuthorId);
         });
         builder.Entity<PostCategories>(entity =>
         {
             entity.HasKey(e => new { e.Id, e.CategoryId, e.PostId });
-            entity.HasOne(n => n.Category)
+            entity.HasOne(n => n.PostCategory)
                 .WithMany(n => n.PostCategories)
                 .HasForeignKey(n => n.CategoryId)
                 .HasPrincipalKey(c => c.Id);
             entity.HasOne(n => n.Post)
                 .WithMany(n => n.PostCategories)
+                .HasForeignKey(n => n.PostId)
+                .HasPrincipalKey(c => c.Id);
+        });
+        builder.Entity<Comment>(entity =>
+        {
+            entity.HasKey(e => new { e.Id, e.AuthorId, e.PostId });
+            entity.HasOne(n => n.Author)
+                .WithMany(n => n.Comments)
+                .HasForeignKey(n => n.AuthorId)
+                .HasPrincipalKey(c => c.Id);
+            entity.HasOne(n => n.Post)
+                .WithMany(n => n.Comments)
                 .HasForeignKey(n => n.PostId)
                 .HasPrincipalKey(c => c.Id);
         });

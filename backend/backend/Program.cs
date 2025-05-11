@@ -1,6 +1,8 @@
 using System.Net.WebSockets;
 using System.Text;
+using backend.Areas.Blog.Services;
 using backend.Areas.Communication.Services;
+using backend.Areas.Ecommerce.Services;
 using backend.Areas.Identity.Models;
 using backend.Areas.Identity.Services;
 using backend.Areas.Main.Services;
@@ -33,6 +35,14 @@ public class Program
                 listenOptions.UseHttps();
             });
         });
+        builder.Services.AddDistributedMemoryCache();
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.File("/Areas/Ecommerce/Logs/ApplicationLogs.txt")
+            .CreateLogger();
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File("/Areas/Blog/Logs/ApplicationLogs.txt")
+            .CreateLogger();
         Log.Logger = new LoggerConfiguration()
             .WriteTo.File("/Areas/Communication/Logs/Communication_Logs.txt")
             .CreateLogger();
@@ -113,7 +123,6 @@ public class Program
                 // (Optional: restrict origins in production)
             });
         });
-
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IRoleRepository, RoleRepository>();
         builder.Services.AddScoped<IEmailRepository, EmailRepository>();
@@ -137,9 +146,25 @@ public class Program
         builder.Services.AddScoped<ILeadTaskRepository, LeadTaskRepository>();
         builder.Services.AddScoped<ICampaignTaskRepository, CampaignTaskRepository>();
         builder.Services.AddScoped<ICompanyTaskRepository, CompanyTaskRepository>();
-        
+        //-------------  Blog Services   ----------------//
+        builder.Services.AddScoped<IPostRepository, PostRepository>();
+        //-------------  Ecommerce Services   ----------------//
+        builder.Services.AddScoped<IProductRepository, ProductRepository>();
+        builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+        builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+        builder.Services.AddScoped<ICartRepository, CartRepository>();
+        builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+        //-------------  End of Services   ----------------//
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v2", new Microsoft.OpenApi.Models.OpenApiInfo
+            {
+                Title = "CMS",
+                Version = "v2"
+            });
+        });
+        builder.Services.AddHttpContextAccessor();
         builder.Services.AddControllers().AddJsonOptions(options =>
         {
             options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
@@ -150,7 +175,11 @@ public class Program
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CMS V2");
+                c.RoutePrefix = ""; // Optional: serve Swagger UI at root
+            });
         }
         
         app.UseCors("CorsPolicy");

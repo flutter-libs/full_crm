@@ -21,4 +21,5 @@ public class Post
     public string AuthorId { get; set; }
     public User Author { get; set; }
     public IEnumerable<PostCategories> PostCategories { get; set; }
+    public IEnumerable<Comment> Comments { get; set; }
 }

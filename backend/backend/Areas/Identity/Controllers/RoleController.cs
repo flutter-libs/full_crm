@@ -37,12 +37,12 @@ public class RoleController : ControllerBase
 
     [HttpPost]
     [Route("assign-role")]
-    public async Task<ActionResult> AssignRole(string roleId, string userId)
+    public async Task<ActionResult> AssignRole([FromBody] UserRolesViewModel model)
     {
         try
         {
-            var user = await _userManager.FindByIdAsync(userId);
-            var role = await _roleManager.FindByIdAsync(roleId);
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            var role = await _roleManager.FindByIdAsync(model.RoleId);
             if (role == null)
             {
                 Console.WriteLine("Role not found");
